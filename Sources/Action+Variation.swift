@@ -1,6 +1,6 @@
 //
 //  Action+Variation.swift
-//  ExplodeVoices
+//  ProcessMusicXML
 //
 //  Created by Lieven Dekeyser on 10/12/2017.
 //  Copyright © 2017 Plane Tree Software. All rights reserved.

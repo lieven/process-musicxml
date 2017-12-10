@@ -1,6 +1,6 @@
 //
 //  Action.swift
-//  ExplodeVoices
+//  ProcessMusicXML
 //
 //  Created by Lieven Dekeyser on 10/12/2017.
 //  Copyright © 2017 Plane Tree Software. All rights reserved.
@@ -67,7 +67,7 @@ enum Action {
 	}
 	
 	func printUsage() {
-		fputs("Usage: ExplodeVoices \(verb) \(usage)\n", stderr)
+		fputs("Usage: ProcessMusicXML \(verb) \(usage)\n", stderr)
 	}
 	
 	static let all: [Action] = [.variation(args: nil), .satb(args: nil)]

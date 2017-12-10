@@ -1,6 +1,6 @@
 //
 //  Score+Transform.swift
-//  ExplodeVoices
+//  ProcessMusicXML
 //
 //  Created by Lieven Dekeyser on 10/12/2017.
 //  Copyright © 2017 Plane Tree Software. All rights reserved.
@@ -58,7 +58,7 @@ extension Score {
 		
 		let inputExtension = inputURL.pathExtension.lowercased()
 		if inputExtension == "mscz" {
-			let tempMusicXML = URL(fileURLWithPath: NSTemporaryDirectory(), isDirectory: true).appendingPathComponent("ExplodeVoicesInput-\(UUID().uuidString).xml")
+			let tempMusicXML = URL(fileURLWithPath: NSTemporaryDirectory(), isDirectory: true).appendingPathComponent("MusicXMLInput-\(UUID().uuidString).xml")
 			
 			guard let mscore = which("mscore") else {
 				fputs("mscore not found\n", stderr)
@@ -86,7 +86,7 @@ extension Score {
 		
 		let outputExtension = outputURL.pathExtension.lowercased()
 		if outputExtension == "mscz" {
-			outputMusicXML = URL(fileURLWithPath: NSTemporaryDirectory(), isDirectory: true).appendingPathComponent("ExplodeVoicesOutput-\(UUID().uuidString).xml")
+			outputMusicXML = URL(fileURLWithPath: NSTemporaryDirectory(), isDirectory: true).appendingPathComponent("MusicXMLOutput-\(UUID().uuidString).xml")
 		} else {
 			outputMusicXML = outputURL
 		}

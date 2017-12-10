@@ -1,6 +1,6 @@
 //
 //  main.swift
-//  ExplodeVoices
+//  ProcessMusicXML
 //
 //  Created by Lieven Dekeyser on 27/11/2017.
 //  Copyright © 2017 Plane Tree Software. All rights reserved.
@@ -34,7 +34,7 @@ func printUsage(action: Action? = nil, errorMessage: String? = nil) {
 	}
 	
 	actions.forEach { (action) in
-		fputs("Usage: ExplodeVoices \(action.verb) \(action.usage)\n", stderr)
+		fputs("Usage: ProcessMusicXML \(action.verb) \(action.usage)\n", stderr)
 	}
 }
 

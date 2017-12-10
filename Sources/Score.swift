@@ -1,6 +1,6 @@
 //
 //  Score.swift
-//  ExplodeVoices
+//  ProcessMusicXML
 //
 //  Created by Lieven Dekeyser on 09/12/2017.
 //  Copyright © 2017 Plane Tree Software. All rights reserved.
