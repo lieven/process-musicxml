@@ -1,5 +1,5 @@
 //
-//  Action+SATB.swift
+//  Action+ChoirVariations.swift
 //  ProcessMusicXML
 //
 //  Created by Lieven Dekeyser on 10/12/2017.

@@ -1,5 +1,5 @@
 //
-//  Score+SATB.swift
+//  Score+Choir.swift
 //  ProcessMusicXML
 //
 //  Created by Lieven Dekeyser on 10/12/2017.
