@@ -134,7 +134,9 @@ class Measure {
 				musicCounter = childElement.musicCounter
 			}
 			
-			result.addChild(childElement.element)
+			if let childCopy = childElement.element.copy() as? XMLElement {
+				result.addChild(childCopy)
+			}
 			
 			if childElement.movesMusicCounter {
 				musicCounter += childElement.duration

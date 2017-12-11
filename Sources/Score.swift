@@ -39,6 +39,12 @@ class PartListElement {
 		}
 	}
 	
+	var volume: String? {
+		didSet {
+			element.elements(forName: "midi-instrument").first?.elements(forName: "volume").first?.stringValue = volume
+		}
+	}
+	
 	let element: XMLElement
 	
 	init?(element originalElement: XMLElement) {
@@ -56,6 +62,7 @@ class PartListElement {
 		
 		self.identifier = identifier
 		self.name = name
+		self.volume = element.elements(forName: "midi-instrument").first?.elements(forName: "volume").first?.stringValue
 		self.element = element
 	}
 }
@@ -195,8 +202,9 @@ class Score {
 		resultElements.append(partListElement)
 		resultElements.append(contentsOf: partList.flatMap { $0.resultElement })
 		
-		result.rootElement()?.setChildren(resultElements)
+		result.rootElement()?.setChildren(resultElements.flatMap { $0.copy() as? XMLElement })
 		
 		return result
 	}
 }
+

@@ -20,6 +20,8 @@
 		CA07DEC71FDD6AEA0044819C /* XMLElement+Edits.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA07DEBA1FDD6AEA0044819C /* XMLElement+Edits.swift */; };
 		CA07DEC81FDD6AEA0044819C /* XMLElement+Measure.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA07DEBB1FDD6AEA0044819C /* XMLElement+Measure.swift */; };
 		CA07DEC91FDD6AEA0044819C /* XMLElement+MeasureElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA07DEBC1FDD6AEA0044819C /* XMLElement+MeasureElement.swift */; };
+		CA07DECB1FDD6F520044819C /* Action+ChoirMP3.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA07DECA1FDD6F520044819C /* Action+ChoirMP3.swift */; };
+		CA07DECD1FDD78650044819C /* MuseScore.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA07DECC1FDD78650044819C /* MuseScore.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -49,6 +51,8 @@
 		CA07DEBA1FDD6AEA0044819C /* XMLElement+Edits.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "XMLElement+Edits.swift"; sourceTree = "<group>"; };
 		CA07DEBB1FDD6AEA0044819C /* XMLElement+Measure.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "XMLElement+Measure.swift"; sourceTree = "<group>"; };
 		CA07DEBC1FDD6AEA0044819C /* XMLElement+MeasureElement.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "XMLElement+MeasureElement.swift"; sourceTree = "<group>"; };
+		CA07DECA1FDD6F520044819C /* Action+ChoirMP3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Action+ChoirMP3.swift"; sourceTree = "<group>"; };
+		CA07DECC1FDD78650044819C /* MuseScore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuseScore.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,16 +85,18 @@
 		CA07DEAF1FDD6AEA0044819C /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				CA07DEB21FDD6AEA0044819C /* Action.swift */,
+				CA07DECA1FDD6F520044819C /* Action+ChoirMP3.swift */,
 				CA07DEB01FDD6AEA0044819C /* Action+SATB.swift */,
 				CA07DEB11FDD6AEA0044819C /* Action+Variation.swift */,
-				CA07DEB21FDD6AEA0044819C /* Action.swift */,
 				CA07DEB31FDD6AEA0044819C /* main.swift */,
 				CA07DEB41FDD6AEA0044819C /* Measure.swift */,
+				CA07DECC1FDD78650044819C /* MuseScore.swift */,
 				CA07DEB51FDD6AEA0044819C /* Part.swift */,
+				CA07DEB91FDD6AEA0044819C /* Score.swift */,
 				CA07DEB61FDD6AEA0044819C /* Score+ExtractVariation.swift */,
 				CA07DEB71FDD6AEA0044819C /* Score+SATB.swift */,
 				CA07DEB81FDD6AEA0044819C /* Score+Transform.swift */,
-				CA07DEB91FDD6AEA0044819C /* Score.swift */,
 				CA07DEBA1FDD6AEA0044819C /* XMLElement+Edits.swift */,
 				CA07DEBB1FDD6AEA0044819C /* XMLElement+Measure.swift */,
 				CA07DEBC1FDD6AEA0044819C /* XMLElement+MeasureElement.swift */,
@@ -162,9 +168,11 @@
 				CA07DEC11FDD6AEA0044819C /* Measure.swift in Sources */,
 				CA07DEC51FDD6AEA0044819C /* Score+Transform.swift in Sources */,
 				CA07DEC61FDD6AEA0044819C /* Score.swift in Sources */,
+				CA07DECB1FDD6F520044819C /* Action+ChoirMP3.swift in Sources */,
 				CA07DEC01FDD6AEA0044819C /* main.swift in Sources */,
 				CA07DEC81FDD6AEA0044819C /* XMLElement+Measure.swift in Sources */,
 				CA07DEC41FDD6AEA0044819C /* Score+SATB.swift in Sources */,
+				CA07DECD1FDD78650044819C /* MuseScore.swift in Sources */,
 				CA07DEC91FDD6AEA0044819C /* XMLElement+MeasureElement.swift in Sources */,
 				CA07DEC21FDD6AEA0044819C /* Part.swift in Sources */,
 				CA07DEC31FDD6AEA0044819C /* Score+ExtractVariation.swift in Sources */,

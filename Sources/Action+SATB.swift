@@ -9,8 +9,19 @@
 import Foundation
 
 extension Action {
-	func performSATBAction(args: SATBArgs) {
-		Score.transform(inputURL: args.inputURL, outputURL: args.outputURL) { (score) in
+	func performChoirVariationsAction(inputPath: String, outputPath: String?) {
+		let inputURL = URL(fileURLWithPath: inputPath)
+		
+		let outputURL: URL
+		if let outputPath = outputPath {
+			outputURL = URL(fileURLWithPath: outputPath)
+		} else {
+			let outputName = inputURL.deletingPathExtension().lastPathComponent.appending("-variations")
+			outputURL = inputURL.deletingLastPathComponent()
+				.appendingPathComponent(outputName).appendingPathExtension(inputURL.pathExtension)
+		}
+	
+		Score.transform(inputURL: inputURL, outputURL: outputURL) { (score) in
 			if let soprano = score.sopranoPart, let alto = score.altoPart {
 				score.extractMezzos(soprano: soprano, alto: alto)
 			}
@@ -18,33 +29,6 @@ extension Action {
 				score.extractBaritones(tenor: tenor, bass: bass)
 			}
 		}
-	}
-}
-
-
-struct SATBArgs {
-	let inputURL: URL
-	let outputURL: URL
-	
-	init?(args: [String]) {
-		guard let inputPath = args[safe: 0] else {
-			return nil
-		}
-		
-		inputURL = URL(fileURLWithPath: inputPath)
-		
-		if let outputPath = args[safe: 1] {
-			outputURL = URL(fileURLWithPath: outputPath)
-		} else {
-			outputURL = SATBArgs.outputURL(inputURL: inputURL)
-		}
-	}
-	
-	static let usage = "<inputPath> <outputPath>?"
-	
-	static func outputURL(inputURL: URL) -> URL {
-		let outputName = inputURL.deletingPathExtension().lastPathComponent.appending("-SMATBB")
-		return inputURL.deletingLastPathComponent().appendingPathComponent(outputName).appendingPathExtension(inputURL.pathExtension)
 	}
 }
 
