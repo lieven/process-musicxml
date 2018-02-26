@@ -1,0 +1,56 @@
+//
+//  Score+ReduceDynamics.swift
+//  ProcessMusicXML
+//
+//  Created by Lieven Dekeyser on 26/02/2018.
+//  Copyright © 2018 Plane Tree Software. All rights reserved.
+//
+
+import Foundation
+
+
+extension Score {
+	func reduceDynamics() {
+		for item in partList {
+    		if case .part(let part) = item {
+				part.reduceDynamics()
+			}
+		}
+	}
+	
+}
+
+extension Part {
+	func reduceDynamics() {
+		for measure in measures {
+			measure.reduceDynamics()
+		}
+	}
+}
+
+extension Measure {
+	func reduceDynamics() {
+		for element in childElements {
+			element.reduceDynamics()
+		}
+	}
+}
+
+extension MeasureElement {
+	func reduceDynamics() {
+		guard name == "direction" else { return }
+		
+		let defaultDynamics = 80
+		
+		if let soundElement = element.firstChild(name: "sound"), soundElement.attribute(forName: "dynamics")?.stringValue != nil {
+			// OK, let's override
+			soundElement.setAttribute("dynamics", value: "\(defaultDynamics)")
+		} else if element.firstChild(name: "direction-type")?.firstChild(name: "dynamics") != nil {
+			// Just to be safe, let's add <sound dynamics="80">
+			let soundElement = XMLElement()
+			soundElement.name = "sound"
+			soundElement.setAttribute("dynamics", value: "\(defaultDynamics)")
+			element.addChild(soundElement)
+		}
+	}
+}	

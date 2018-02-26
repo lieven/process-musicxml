@@ -13,6 +13,7 @@ fileprivate extension Score {
 		partList.forEach { (item) in
 			if case .part(let part) = item {
 				part.metadata.volume = part.metadata.identifier == choirPart.metadata.identifier ? "100.0" : "33.0"
+				part.reduceDynamics()
 			}
 		}
 		

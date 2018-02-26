@@ -22,6 +22,7 @@
 		CA07DEC91FDD6AEA0044819C /* XMLElement+MeasureElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA07DEBC1FDD6AEA0044819C /* XMLElement+MeasureElement.swift */; };
 		CA07DECB1FDD6F520044819C /* Action+ChoirMP3.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA07DECA1FDD6F520044819C /* Action+ChoirMP3.swift */; };
 		CA07DECD1FDD78650044819C /* MuseScore.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA07DECC1FDD78650044819C /* MuseScore.swift */; };
+		CA2A0C9E2044A04600C5B2CE /* Score+ReduceDynamics.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA2A0C9D2044A04600C5B2CE /* Score+ReduceDynamics.swift */; };
 		CAC35C2F203A3F5300C0E967 /* Action+ExtractRange.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC35C2E203A3F5300C0E967 /* Action+ExtractRange.swift */; };
 /* End PBXBuildFile section */
 
@@ -54,6 +55,7 @@
 		CA07DEBC1FDD6AEA0044819C /* XMLElement+MeasureElement.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "XMLElement+MeasureElement.swift"; sourceTree = "<group>"; };
 		CA07DECA1FDD6F520044819C /* Action+ChoirMP3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Action+ChoirMP3.swift"; sourceTree = "<group>"; };
 		CA07DECC1FDD78650044819C /* MuseScore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuseScore.swift; sourceTree = "<group>"; };
+		CA2A0C9D2044A04600C5B2CE /* Score+ReduceDynamics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Score+ReduceDynamics.swift"; sourceTree = "<group>"; };
 		CAC35C2E203A3F5300C0E967 /* Action+ExtractRange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Action+ExtractRange.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -99,6 +101,7 @@
 				CA07DEB91FDD6AEA0044819C /* Score.swift */,
 				CA07DEB71FDD6AEA0044819C /* Score+Choir.swift */,
 				CA07DEB61FDD6AEA0044819C /* Score+ExtractVariation.swift */,
+				CA2A0C9D2044A04600C5B2CE /* Score+ReduceDynamics.swift */,
 				CA07DEB81FDD6AEA0044819C /* Score+Transform.swift */,
 				CA07DEBA1FDD6AEA0044819C /* XMLElement+Edits.swift */,
 				CA07DEBB1FDD6AEA0044819C /* XMLElement+Measure.swift */,
@@ -175,6 +178,7 @@
 				CA07DECB1FDD6F520044819C /* Action+ChoirMP3.swift in Sources */,
 				CA07DEC01FDD6AEA0044819C /* main.swift in Sources */,
 				CA07DEC81FDD6AEA0044819C /* XMLElement+Measure.swift in Sources */,
+				CA2A0C9E2044A04600C5B2CE /* Score+ReduceDynamics.swift in Sources */,
 				CA07DEC41FDD6AEA0044819C /* Score+Choir.swift in Sources */,
 				CA07DECD1FDD78650044819C /* MuseScore.swift in Sources */,
 				CA07DEC91FDD6AEA0044819C /* XMLElement+MeasureElement.swift in Sources */,
