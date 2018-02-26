@@ -12,13 +12,13 @@ import Foundation
 enum Action {
 	case variation(args: VariationArgs?)
 	case choirVariations(inputPath: String?, outputPath: String?)
-	case choirMP3(inputPath: String?)
+	case choirMP3(inputPath: String?, outputPath: String?)
 	case extractRange(inputPath: String?, outputPath: String?, firstMeasure: Int, lastMeasure: Int)
 	
 	static let all: [Action] = [
 		.variation(args: nil),
 		.choirVariations(inputPath: nil, outputPath: nil),
-		.choirMP3(inputPath: nil),
+		.choirMP3(inputPath: nil, outputPath: nil),
 		.extractRange(inputPath: nil, outputPath: nil, firstMeasure: 1, lastMeasure: 1)
 	]
 	
@@ -33,7 +33,7 @@ enum Action {
 		case "choirVariations":
 			self = .choirVariations(inputPath: args[safe: 2], outputPath: args[safe: 3])
 		case "choirMP3":
-			self = .choirMP3(inputPath: args[safe: 2])
+			self = .choirMP3(inputPath: args[safe: 2], outputPath: args[safe: 3])
 		case "extractRange":
 			guard
 				let firstMeasureString = args[safe: 4], let lastMeasureString = args[safe: 5],
@@ -69,7 +69,7 @@ enum Action {
 		case .choirVariations:
 			return "<inputPath> <outputPath>?"
 		case .choirMP3:
-			return "<inputPath>"
+			return "<inputPath> <outputPath>?"
 		case .extractRange:
 			return "<inputPath> <outputPath> <firstMeasure> <lastMeasure>"
 		}
@@ -91,12 +91,12 @@ enum Action {
 			}
 			performChoirVariationsAction(inputPath: inputPath, outputPath: outputPath)
 		
-		case .choirMP3(let inputPath):
+		case .choirMP3(let inputPath, let outputPath):
 			guard let inputPath = inputPath else {
 				printUsage()
 				return
 			}
-			performChoirMP3Action(inputPath: inputPath)
+			performChoirMP3Action(inputPath: inputPath, outputPath: outputPath)
 		
 		case .extractRange(let inputPath, let outputPath, let firstMeasure, let lastMeasure):
 			guard let inputPath = inputPath, let outputPath = outputPath else {

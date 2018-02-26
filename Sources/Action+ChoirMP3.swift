@@ -23,7 +23,7 @@ fileprivate extension Score {
 
 
 extension Action {
-	func performChoirMP3Action(inputPath: String) {
+	func performChoirMP3Action(inputPath: String, outputPath: String?) {
 		do {
 			let inputFile = URL(fileURLWithPath: inputPath)
 			guard let score = try Score(inputFile: inputFile) else {
@@ -46,11 +46,18 @@ extension Action {
 			]
 			
 			
+			let outputFile: URL
+			if let outputPath = outputPath {
+				outputFile = URL(fileURLWithPath: outputPath)
+			} else {
+				outputFile = inputFile
+			}
+			
 			score.partList.forEach { (item) in
 				if case .part(let part) = item, choirPartNames.contains(part.metadata.name.lowercased()) {
-					let outputFileName = inputFile.deletingPathExtension().lastPathComponent.appending("-").appending(part.metadata.name)
-					let outputFile = inputFile.deletingLastPathComponent().appendingPathComponent(outputFileName).appendingPathExtension("mp3")
-					score.export(choirPart: part, outputFile: outputFile)
+					let outputMP3Name = outputFile.deletingPathExtension().lastPathComponent.appending("-").appending(part.metadata.name)
+					let outputMP3URL = outputFile.deletingLastPathComponent().appendingPathComponent(outputMP3Name).appendingPathExtension("mp3")
+					score.export(choirPart: part, outputFile: outputMP3URL)
 				}
 			}
 			
