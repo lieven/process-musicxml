@@ -58,4 +58,31 @@ extension XMLElement {
 		
 		return elementCopy
 	}
+	
+	func children(name: String) -> [XMLElement] {
+		let results: [XMLElement]? = children?.flatMap {
+			guard let childElement = $0 as? XMLElement, childElement.name == name else {
+				return nil
+			}
+			
+			return childElement
+		}
+		return results ?? []
+	}
+	
+	func firstChild(name: String) -> XMLElement? {
+		return children(name: name).first
+	}
+	
+	func overrideChildren(withThoseOf other: XMLElement) {
+		other.children?.forEach { (otherChild) in
+			guard let otherChildElement = otherChild as? XMLElement, let otherChildName = otherChildElement.name else {
+				return
+			}
+			
+			if let existingChild = firstChild(name: otherChildName), let otherChildCopy = otherChildElement.copy() as? XMLElement {
+				replaceChild(at: existingChild.index, with: otherChildCopy)
+			}
+		}
+	}
 }
