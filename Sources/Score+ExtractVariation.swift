@@ -12,7 +12,7 @@ import Foundation
 extension Score {
 
 	func extractVariation(basePartID: String, baseVoice: String, variationPartID: String, variationVoice: String, cut: Bool, destinationPartName: String) {
-		let partIDsAndNames: [(String, String)] = partList.flatMap {
+		let partIDsAndNames: [(String, String)] = partList.compactMap {
 			switch $0 {
 				case .part(let part):
 					return (part.metadata.identifier, part.metadata.name)
@@ -67,10 +67,10 @@ extension Score {
 
 
 		// Make joint base/variation measures:
-		destinationPart.measures = zip(basePartMeasures, variationMeasures).map { (measures) -> Measure in
-			let destinationMeasure = measures.0.copy()
+		destinationPart.measures = zip(basePartMeasures, variationMeasures).map { (baseMeasure, variationMeasure) -> Measure in
+			let destinationMeasure = baseMeasure.copy()
 			destinationMeasure.keepOnly(voice: baseVoice)
-			destinationMeasure.overwriteNotesWithThoseFrom(variation: measures.1, voice: variationVoice)
+			destinationMeasure.overwriteNotesWithThoseFrom(variation: variationMeasure, voice: variationVoice)
 			return destinationMeasure
 		}
 

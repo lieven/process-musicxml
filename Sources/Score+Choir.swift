@@ -18,12 +18,20 @@ extension Score {
 		return partWithName(in: [ "alt", "alto" ])
 	}
 	
+	var womenPart: Part? {
+		return partWithName(in: [ "women", "vrouwen", "sopraan/alt", "sopraan\nalt", "soprano/alto", "soprano\nalto" ])
+	}
+	
 	var tenorPart: Part? {
 		return partWithName(in: [ "tenor" ])
 	}
 	
 	var bassPart: Part? {
 		return partWithName(in: [ "bass", "bas" ])
+	}
+	
+	var menPart: Part? {
+		return partWithName(in: [ "men", "mannen", "tenor/bas", "tenor\nbas", "tenor/bass", "tenor\nbass" ])
 	}
 	
 	private func partWithName(in namesList: [String]) -> Part? {
@@ -33,6 +41,20 @@ extension Score {
 			}
 		}
 		return nil
+	}
+	
+	func splitWomen(part: Part) {
+		if part.voices.contains("2") {
+			extractVariation(basePart: part, baseVoice: "1", variationPart: part, variationVoice: "2", cut: true, destinationPartName: "Alt")
+			part.metadata.name = "Sopraan"
+		}
+	}
+	
+	func splitMen(part: Part) {
+		if part.voices.contains("2") {
+			extractVariation(basePart: part, baseVoice: "1", variationPart: part, variationVoice: "2", cut: true, destinationPartName: "Bas")
+			part.metadata.name = "Tenor"
+		}
 	}
 	
 	func extractMezzos(soprano: Part, alto: Part) {

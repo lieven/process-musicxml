@@ -24,9 +24,13 @@ extension Action {
 		Score.transform(inputURL: inputURL, outputURL: outputURL) { (score) in
 			if let soprano = score.sopranoPart, let alto = score.altoPart {
 				score.extractMezzos(soprano: soprano, alto: alto)
+			} else if let women = score.womenPart {
+				score.splitWomen(part: women)
 			}
 			if let tenor = score.tenorPart, let bass = score.bassPart {
 				score.extractBaritones(tenor: tenor, bass: bass)
+			} else if let men = score.menPart {
+				score.splitMen(part: men)
 			}
 		}
 	}

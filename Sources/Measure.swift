@@ -89,7 +89,7 @@ class Measure {
 	
 	init(copying measure: Measure) {
 		self.attributes = measure.attributes
-		self.childElements = measure.childElements.flatMap { $0.copy() }
+		self.childElements = measure.childElements.compactMap { $0.copy() }
 	}
 	
 	func copy() -> Measure {
@@ -107,19 +107,28 @@ class Measure {
 	}
 	
 	func keepOnly(voice: String) {
-		childElements = childElements.filter { (child) in
-			if let childVoice = child.voice {
-				return childVoice == voice
-			} else {
-				return true
+		childElements = childElements.compactMap { (child) in
+			guard let childVoice = child.voice else {
+				return child
 			}
+			
+			guard childVoice == voice else {
+				return nil
+			}
+			
+			child.element.changeVoice(to: "1")
+			return child
 		}
 	}
 	
 	func overwriteNotesWithThoseFrom(variation: Measure, voice: String) {
-		let variationElements = variation.childElements.filter { $0.voice == voice && !$0.isRest }
+		let variationElements = variation.childElements.filter { $0.voice == voice }
 		childElements = childElements.filter { !$0.overlaps(with: variationElements) }
-		childElements.append(contentsOf: variationElements.flatMap { $0.copy() })
+		childElements.append(contentsOf: variationElements.compactMap {
+			let result = $0.copy()
+			result?.element.changeVoice(to: "1")
+			return result
+		})
 	}
 	
 	var resultElement: XMLElement {

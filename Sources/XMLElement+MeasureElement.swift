@@ -50,6 +50,14 @@ extension XMLElement {
 		return voice
 	}
 	
+	func changeVoice(to voice: String) {
+		if let voiceElement = elements(forName: "voice").first {
+			voiceElement.stringValue = voice
+		} else {
+			addChild(XMLElement(name: "voice", stringValue: voice))
+		}
+	}
+	
 	var isRest: Bool {
 		return (name == "note" && !elements(forName: "rest").isEmpty)
 	}

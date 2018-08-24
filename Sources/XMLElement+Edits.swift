@@ -60,7 +60,7 @@ extension XMLElement {
 	}
 	
 	func children(name: String) -> [XMLElement] {
-		let results: [XMLElement]? = children?.flatMap {
+		let results: [XMLElement]? = children?.compactMap {
 			guard let childElement = $0 as? XMLElement, childElement.name == name else {
 				return nil
 			}

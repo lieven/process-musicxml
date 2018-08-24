@@ -131,14 +131,14 @@ class Score {
 			guard let partID = partElement.attribute(forName: "id")?.stringValue else {
 				return
 			}
-			partMeasures[partID] = partElement.elements(forName: "measure").flatMap { Measure(element: $0) }
+			partMeasures[partID] = partElement.elements(forName: "measure").compactMap { Measure(element: $0) }
 		}
 		
 		guard let partListElement = rootElement.elements(forName: "part-list").first?.copy() as? XMLElement else {
 			return nil
 		}
 		
-		self.partList = partListElement.children?.flatMap { (node) in
+		self.partList = partListElement.children?.compactMap { (node) in
 			guard let element = node as? XMLElement else {
 				return nil
 			}
@@ -147,7 +147,7 @@ class Score {
 		
 		
 		self.originalDocument = originalDocument
-		self.headerElements = rootElement.children?.flatMap { (node) in
+		self.headerElements = rootElement.children?.compactMap { (node) in
 			guard let element = node as? XMLElement else {
 				return nil
 			}
@@ -200,9 +200,9 @@ class Score {
 		var resultElements = [XMLElement]()
 		resultElements.append(contentsOf: headerElements)
 		resultElements.append(partListElement)
-		resultElements.append(contentsOf: partList.flatMap { $0.resultElement })
+		resultElements.append(contentsOf: partList.compactMap { $0.resultElement })
 		
-		result.rootElement()?.setChildren(resultElements.flatMap { $0.copy() as? XMLElement })
+		result.rootElement()?.setChildren(resultElements.compactMap { $0.copy() as? XMLElement })
 		
 		return result
 	}
