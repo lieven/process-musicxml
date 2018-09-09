@@ -42,7 +42,9 @@ extension Action {
 				"bari-tenor",
 				"bariton", "mannen", "men",
 				"bari-bas",
-				"bas", "bass"
+				"bas", "bass",
+				"sopraan/tenor", "soprano/tenor",
+				"alt/bas", "alto/bass"
 			]
 			
 			
@@ -55,7 +57,7 @@ extension Action {
 			
 			score.partList.forEach { (item) in
 				if case .part(let part) = item, choirPartNames.contains(part.metadata.name.lowercased()) {
-					let outputMP3Name = outputFile.deletingPathExtension().lastPathComponent.appending("-").appending(part.metadata.name)
+					let outputMP3Name = outputFile.deletingPathExtension().lastPathComponent.appending("-").appending(part.metadata.name.replacingOccurrences(of: "/", with: "-"))
 					let outputMP3URL = outputFile.deletingLastPathComponent().appendingPathComponent(outputMP3Name).appendingPathExtension("mp3")
 					score.export(choirPart: part, outputFile: outputMP3URL)
 				}
