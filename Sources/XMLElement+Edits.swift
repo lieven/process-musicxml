@@ -10,6 +10,23 @@ import Foundation
 
 
 extension XMLElement {
+	func getStringValue(child: String) -> String? {
+		return elements(forName: child).first?.stringValue?.trimmingCharacters(in: .whitespacesAndNewlines)
+	}
+	
+	func set(child: String, stringValue: String?) {
+		let existingElement = elements(forName: child).first
+		if let newValue = stringValue {
+			if let element = existingElement {
+				element.stringValue = newValue
+			} else {
+				addChild(XMLElement(name: child, stringValue: newValue))
+			}
+		} else if let element = existingElement {
+			removeChild(at: element.index)
+		}
+	}
+	
 	func append(_ suffix: String, toAttributeWithName name: String) {
 		attribute(forName: name)?.stringValue?.append(suffix)
 	}
@@ -47,6 +64,10 @@ extension XMLElement {
 			attribute.stringValue = value
 			addAttribute(attribute)
 		}
+	}
+	
+	func getAttribute(_ key: String) -> String? {
+		return attribute(forName: key)?.stringValue
 	}
 	
 	func duplicate() -> XMLElement? {

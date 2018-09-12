@@ -7,37 +7,40 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		OBJ_45 /* Action+ChoirMP3.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_8 /* Action+ChoirMP3.swift */; };
-		OBJ_46 /* Action+ChoirVariations.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_9 /* Action+ChoirVariations.swift */; };
-		OBJ_47 /* Action+ExtractRange.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_10 /* Action+ExtractRange.swift */; };
-		OBJ_48 /* Action+Variation.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_11 /* Action+Variation.swift */; };
-		OBJ_49 /* Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_12 /* Action.swift */; };
-		OBJ_50 /* Measure.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_13 /* Measure.swift */; };
-		OBJ_51 /* MuseScore.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_14 /* MuseScore.swift */; };
-		OBJ_52 /* Part.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_15 /* Part.swift */; };
-		OBJ_53 /* Score+Choir.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_16 /* Score+Choir.swift */; };
-		OBJ_54 /* Score+ExtractVariation.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_17 /* Score+ExtractVariation.swift */; };
-		OBJ_55 /* Score+ReduceDynamics.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_18 /* Score+ReduceDynamics.swift */; };
-		OBJ_56 /* Score+Transform.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_19 /* Score+Transform.swift */; };
-		OBJ_57 /* Score.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_20 /* Score.swift */; };
-		OBJ_58 /* XMLElement+Edits.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_21 /* XMLElement+Edits.swift */; };
-		OBJ_59 /* XMLElement+Measure.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_22 /* XMLElement+Measure.swift */; };
-		OBJ_60 /* XMLElement+MeasureElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_23 /* XMLElement+MeasureElement.swift */; };
-		OBJ_61 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_24 /* main.swift */; };
-		OBJ_63 /* ZIPFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = "ZIPFoundation::ZIPFoundation::Product" /* ZIPFoundation.framework */; };
-		OBJ_71 /* Package.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_6 /* Package.swift */; };
-		OBJ_76 /* Archive+Reading.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_29 /* Archive+Reading.swift */; };
-		OBJ_77 /* Archive+Writing.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_30 /* Archive+Writing.swift */; };
-		OBJ_78 /* Archive.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_31 /* Archive.swift */; };
-		OBJ_79 /* Data+Compression.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_32 /* Data+Compression.swift */; };
-		OBJ_80 /* Data+Serialization.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_33 /* Data+Serialization.swift */; };
-		OBJ_81 /* Entry.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_34 /* Entry.swift */; };
-		OBJ_82 /* FileManager+ZIP.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_35 /* FileManager+ZIP.swift */; };
-		OBJ_89 /* Package.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_36 /* Package.swift */; };
+		OBJ_48 /* Action+ChoirMP3.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_8 /* Action+ChoirMP3.swift */; };
+		OBJ_49 /* Action+ChoirVariations.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_9 /* Action+ChoirVariations.swift */; };
+		OBJ_50 /* Action+ExtractRange.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_10 /* Action+ExtractRange.swift */; };
+		OBJ_51 /* Action+Variation.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_11 /* Action+Variation.swift */; };
+		OBJ_52 /* Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_12 /* Action.swift */; };
+		OBJ_53 /* Measure.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_13 /* Measure.swift */; };
+		OBJ_54 /* MuseScore.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_14 /* MuseScore.swift */; };
+		OBJ_55 /* MuseScoreDocument+Swing.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_15 /* MuseScoreDocument+Swing.swift */; };
+		OBJ_56 /* MuseScoreDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_16 /* MuseScoreDocument.swift */; };
+		OBJ_57 /* MuseScoreFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_17 /* MuseScoreFile.swift */; };
+		OBJ_58 /* Part.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_18 /* Part.swift */; };
+		OBJ_59 /* Score+Choir.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_19 /* Score+Choir.swift */; };
+		OBJ_60 /* Score+ExtractVariation.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_20 /* Score+ExtractVariation.swift */; };
+		OBJ_61 /* Score+ReduceDynamics.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_21 /* Score+ReduceDynamics.swift */; };
+		OBJ_62 /* Score+Transform.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_22 /* Score+Transform.swift */; };
+		OBJ_63 /* Score.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_23 /* Score.swift */; };
+		OBJ_64 /* XMLElement+Edits.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_24 /* XMLElement+Edits.swift */; };
+		OBJ_65 /* XMLElement+Measure.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_25 /* XMLElement+Measure.swift */; };
+		OBJ_66 /* XMLElement+MeasureElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_26 /* XMLElement+MeasureElement.swift */; };
+		OBJ_67 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_27 /* main.swift */; };
+		OBJ_69 /* ZIPFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = "ZIPFoundation::ZIPFoundation::Product" /* ZIPFoundation.framework */; };
+		OBJ_77 /* Package.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_6 /* Package.swift */; };
+		OBJ_82 /* Archive+Reading.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_32 /* Archive+Reading.swift */; };
+		OBJ_83 /* Archive+Writing.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_33 /* Archive+Writing.swift */; };
+		OBJ_84 /* Archive.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_34 /* Archive.swift */; };
+		OBJ_85 /* Data+Compression.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_35 /* Data+Compression.swift */; };
+		OBJ_86 /* Data+Serialization.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_36 /* Data+Serialization.swift */; };
+		OBJ_87 /* Entry.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_37 /* Entry.swift */; };
+		OBJ_88 /* FileManager+ZIP.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_38 /* FileManager+ZIP.swift */; };
+		OBJ_95 /* Package.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_39 /* Package.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		CAA4372621495981007B9FEC /* PBXContainerItemProxy */ = {
+		CAA4372721495E66007B9FEC /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = OBJ_1 /* Project object */;
 			proxyType = 1;
@@ -52,24 +55,27 @@
 		OBJ_12 /* Action.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Action.swift; sourceTree = "<group>"; };
 		OBJ_13 /* Measure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Measure.swift; sourceTree = "<group>"; };
 		OBJ_14 /* MuseScore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuseScore.swift; sourceTree = "<group>"; };
-		OBJ_15 /* Part.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Part.swift; sourceTree = "<group>"; };
-		OBJ_16 /* Score+Choir.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Score+Choir.swift"; sourceTree = "<group>"; };
-		OBJ_17 /* Score+ExtractVariation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Score+ExtractVariation.swift"; sourceTree = "<group>"; };
-		OBJ_18 /* Score+ReduceDynamics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Score+ReduceDynamics.swift"; sourceTree = "<group>"; };
-		OBJ_19 /* Score+Transform.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Score+Transform.swift"; sourceTree = "<group>"; };
-		OBJ_20 /* Score.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Score.swift; sourceTree = "<group>"; };
-		OBJ_21 /* XMLElement+Edits.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XMLElement+Edits.swift"; sourceTree = "<group>"; };
-		OBJ_22 /* XMLElement+Measure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XMLElement+Measure.swift"; sourceTree = "<group>"; };
-		OBJ_23 /* XMLElement+MeasureElement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XMLElement+MeasureElement.swift"; sourceTree = "<group>"; };
-		OBJ_24 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
-		OBJ_29 /* Archive+Reading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Archive+Reading.swift"; sourceTree = "<group>"; };
-		OBJ_30 /* Archive+Writing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Archive+Writing.swift"; sourceTree = "<group>"; };
-		OBJ_31 /* Archive.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Archive.swift; sourceTree = "<group>"; };
-		OBJ_32 /* Data+Compression.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+Compression.swift"; sourceTree = "<group>"; };
-		OBJ_33 /* Data+Serialization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+Serialization.swift"; sourceTree = "<group>"; };
-		OBJ_34 /* Entry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Entry.swift; sourceTree = "<group>"; };
-		OBJ_35 /* FileManager+ZIP.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FileManager+ZIP.swift"; sourceTree = "<group>"; };
-		OBJ_36 /* Package.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; name = Package.swift; path = "/Users/lieven/Documents/Development/process-musicxml/.build/checkouts/-4722098165009334769/Package.swift"; sourceTree = "<group>"; };
+		OBJ_15 /* MuseScoreDocument+Swing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MuseScoreDocument+Swing.swift"; sourceTree = "<group>"; };
+		OBJ_16 /* MuseScoreDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuseScoreDocument.swift; sourceTree = "<group>"; };
+		OBJ_17 /* MuseScoreFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuseScoreFile.swift; sourceTree = "<group>"; };
+		OBJ_18 /* Part.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Part.swift; sourceTree = "<group>"; };
+		OBJ_19 /* Score+Choir.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Score+Choir.swift"; sourceTree = "<group>"; };
+		OBJ_20 /* Score+ExtractVariation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Score+ExtractVariation.swift"; sourceTree = "<group>"; };
+		OBJ_21 /* Score+ReduceDynamics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Score+ReduceDynamics.swift"; sourceTree = "<group>"; };
+		OBJ_22 /* Score+Transform.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Score+Transform.swift"; sourceTree = "<group>"; };
+		OBJ_23 /* Score.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Score.swift; sourceTree = "<group>"; };
+		OBJ_24 /* XMLElement+Edits.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XMLElement+Edits.swift"; sourceTree = "<group>"; };
+		OBJ_25 /* XMLElement+Measure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XMLElement+Measure.swift"; sourceTree = "<group>"; };
+		OBJ_26 /* XMLElement+MeasureElement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XMLElement+MeasureElement.swift"; sourceTree = "<group>"; };
+		OBJ_27 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		OBJ_32 /* Archive+Reading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Archive+Reading.swift"; sourceTree = "<group>"; };
+		OBJ_33 /* Archive+Writing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Archive+Writing.swift"; sourceTree = "<group>"; };
+		OBJ_34 /* Archive.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Archive.swift; sourceTree = "<group>"; };
+		OBJ_35 /* Data+Compression.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+Compression.swift"; sourceTree = "<group>"; };
+		OBJ_36 /* Data+Serialization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+Serialization.swift"; sourceTree = "<group>"; };
+		OBJ_37 /* Entry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Entry.swift; sourceTree = "<group>"; };
+		OBJ_38 /* FileManager+ZIP.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FileManager+ZIP.swift"; sourceTree = "<group>"; };
+		OBJ_39 /* Package.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; name = Package.swift; path = "/Users/lieven/Documents/Development/process-musicxml/.build/checkouts/-4722098165009334769/Package.swift"; sourceTree = "<group>"; };
 		OBJ_6 /* Package.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
 		OBJ_8 /* Action+ChoirMP3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Action+ChoirMP3.swift"; sourceTree = "<group>"; };
 		OBJ_9 /* Action+ChoirVariations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Action+ChoirVariations.swift"; sourceTree = "<group>"; };
@@ -78,15 +84,15 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		OBJ_62 /* Frameworks */ = {
+		OBJ_68 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 0;
 			files = (
-				OBJ_63 /* ZIPFoundation.framework in Frameworks */,
+				OBJ_69 /* ZIPFoundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		OBJ_83 /* Frameworks */ = {
+		OBJ_89 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 0;
 			files = (
@@ -96,46 +102,46 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		OBJ_25 /* Tests */ = {
+		OBJ_28 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
 			);
 			name = Tests;
 			sourceTree = SOURCE_ROOT;
 		};
-		OBJ_26 /* Dependencies */ = {
+		OBJ_29 /* Dependencies */ = {
 			isa = PBXGroup;
 			children = (
-				OBJ_27 /* ZIPFoundation 0.9.6 */,
+				OBJ_30 /* ZIPFoundation 0.9.6 */,
 			);
 			name = Dependencies;
 			sourceTree = "<group>";
 		};
-		OBJ_27 /* ZIPFoundation 0.9.6 */ = {
+		OBJ_30 /* ZIPFoundation 0.9.6 */ = {
 			isa = PBXGroup;
 			children = (
-				OBJ_28 /* ZIPFoundation */,
-				OBJ_36 /* Package.swift */,
+				OBJ_31 /* ZIPFoundation */,
+				OBJ_39 /* Package.swift */,
 			);
 			name = "ZIPFoundation 0.9.6";
 			sourceTree = SOURCE_ROOT;
 		};
-		OBJ_28 /* ZIPFoundation */ = {
+		OBJ_31 /* ZIPFoundation */ = {
 			isa = PBXGroup;
 			children = (
-				OBJ_29 /* Archive+Reading.swift */,
-				OBJ_30 /* Archive+Writing.swift */,
-				OBJ_31 /* Archive.swift */,
-				OBJ_32 /* Data+Compression.swift */,
-				OBJ_33 /* Data+Serialization.swift */,
-				OBJ_34 /* Entry.swift */,
-				OBJ_35 /* FileManager+ZIP.swift */,
+				OBJ_32 /* Archive+Reading.swift */,
+				OBJ_33 /* Archive+Writing.swift */,
+				OBJ_34 /* Archive.swift */,
+				OBJ_35 /* Data+Compression.swift */,
+				OBJ_36 /* Data+Serialization.swift */,
+				OBJ_37 /* Entry.swift */,
+				OBJ_38 /* FileManager+ZIP.swift */,
 			);
 			name = ZIPFoundation;
 			path = ".build/checkouts/-4722098165009334769/Sources/ZIPFoundation";
 			sourceTree = SOURCE_ROOT;
 		};
-		OBJ_37 /* Products */ = {
+		OBJ_40 /* Products */ = {
 			isa = PBXGroup;
 			children = (
 				"ProcessMusicXML::ProcessMusicXML::Product" /* ProcessMusicXML */,
@@ -149,9 +155,9 @@
 			children = (
 				OBJ_6 /* Package.swift */,
 				OBJ_7 /* Sources */,
-				OBJ_25 /* Tests */,
-				OBJ_26 /* Dependencies */,
-				OBJ_37 /* Products */,
+				OBJ_28 /* Tests */,
+				OBJ_29 /* Dependencies */,
+				OBJ_40 /* Products */,
 			);
 			name = "";
 			sourceTree = "<group>";
@@ -159,23 +165,26 @@
 		OBJ_7 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				OBJ_12 /* Action.swift */,
 				OBJ_8 /* Action+ChoirMP3.swift */,
 				OBJ_9 /* Action+ChoirVariations.swift */,
 				OBJ_10 /* Action+ExtractRange.swift */,
 				OBJ_11 /* Action+Variation.swift */,
-				OBJ_12 /* Action.swift */,
+				OBJ_27 /* main.swift */,
 				OBJ_13 /* Measure.swift */,
 				OBJ_14 /* MuseScore.swift */,
-				OBJ_15 /* Part.swift */,
-				OBJ_16 /* Score+Choir.swift */,
-				OBJ_17 /* Score+ExtractVariation.swift */,
-				OBJ_18 /* Score+ReduceDynamics.swift */,
-				OBJ_19 /* Score+Transform.swift */,
-				OBJ_20 /* Score.swift */,
-				OBJ_21 /* XMLElement+Edits.swift */,
-				OBJ_22 /* XMLElement+Measure.swift */,
-				OBJ_23 /* XMLElement+MeasureElement.swift */,
-				OBJ_24 /* main.swift */,
+				OBJ_16 /* MuseScoreDocument.swift */,
+				OBJ_15 /* MuseScoreDocument+Swing.swift */,
+				OBJ_17 /* MuseScoreFile.swift */,
+				OBJ_18 /* Part.swift */,
+				OBJ_23 /* Score.swift */,
+				OBJ_19 /* Score+Choir.swift */,
+				OBJ_20 /* Score+ExtractVariation.swift */,
+				OBJ_21 /* Score+ReduceDynamics.swift */,
+				OBJ_22 /* Score+Transform.swift */,
+				OBJ_24 /* XMLElement+Edits.swift */,
+				OBJ_25 /* XMLElement+Measure.swift */,
+				OBJ_26 /* XMLElement+MeasureElement.swift */,
 			);
 			path = Sources;
 			sourceTree = SOURCE_ROOT;
@@ -185,15 +194,15 @@
 /* Begin PBXNativeTarget section */
 		"ProcessMusicXML::ProcessMusicXML" /* ProcessMusicXML */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = OBJ_41 /* Build configuration list for PBXNativeTarget "ProcessMusicXML" */;
+			buildConfigurationList = OBJ_44 /* Build configuration list for PBXNativeTarget "ProcessMusicXML" */;
 			buildPhases = (
-				OBJ_44 /* Sources */,
-				OBJ_62 /* Frameworks */,
+				OBJ_47 /* Sources */,
+				OBJ_68 /* Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				OBJ_64 /* PBXTargetDependency */,
+				OBJ_70 /* PBXTargetDependency */,
 			);
 			name = ProcessMusicXML;
 			productName = ProcessMusicXML;
@@ -202,9 +211,9 @@
 		};
 		"ProcessMusicXML::SwiftPMPackageDescription" /* ProcessMusicXMLPackageDescription */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = OBJ_67 /* Build configuration list for PBXNativeTarget "ProcessMusicXMLPackageDescription" */;
+			buildConfigurationList = OBJ_73 /* Build configuration list for PBXNativeTarget "ProcessMusicXMLPackageDescription" */;
 			buildPhases = (
-				OBJ_70 /* Sources */,
+				OBJ_76 /* Sources */,
 			);
 			buildRules = (
 			);
@@ -216,9 +225,9 @@
 		};
 		"ZIPFoundation::SwiftPMPackageDescription" /* ZIPFoundationPackageDescription */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = OBJ_85 /* Build configuration list for PBXNativeTarget "ZIPFoundationPackageDescription" */;
+			buildConfigurationList = OBJ_91 /* Build configuration list for PBXNativeTarget "ZIPFoundationPackageDescription" */;
 			buildPhases = (
-				OBJ_88 /* Sources */,
+				OBJ_94 /* Sources */,
 			);
 			buildRules = (
 			);
@@ -230,10 +239,10 @@
 		};
 		"ZIPFoundation::ZIPFoundation" /* ZIPFoundation */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = OBJ_72 /* Build configuration list for PBXNativeTarget "ZIPFoundation" */;
+			buildConfigurationList = OBJ_78 /* Build configuration list for PBXNativeTarget "ZIPFoundation" */;
 			buildPhases = (
-				OBJ_75 /* Sources */,
-				OBJ_83 /* Frameworks */,
+				OBJ_81 /* Sources */,
+				OBJ_89 /* Frameworks */,
 			);
 			buildRules = (
 			);
@@ -260,7 +269,7 @@
 				en,
 			);
 			mainGroup = OBJ_5 /*  */;
-			productRefGroup = OBJ_37 /* Products */;
+			productRefGroup = OBJ_40 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
@@ -273,67 +282,70 @@
 /* End PBXProject section */
 
 /* Begin PBXSourcesBuildPhase section */
-		OBJ_44 /* Sources */ = {
+		OBJ_47 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 0;
 			files = (
-				OBJ_45 /* Action+ChoirMP3.swift in Sources */,
-				OBJ_46 /* Action+ChoirVariations.swift in Sources */,
-				OBJ_47 /* Action+ExtractRange.swift in Sources */,
-				OBJ_48 /* Action+Variation.swift in Sources */,
-				OBJ_49 /* Action.swift in Sources */,
-				OBJ_50 /* Measure.swift in Sources */,
-				OBJ_51 /* MuseScore.swift in Sources */,
-				OBJ_52 /* Part.swift in Sources */,
-				OBJ_53 /* Score+Choir.swift in Sources */,
-				OBJ_54 /* Score+ExtractVariation.swift in Sources */,
-				OBJ_55 /* Score+ReduceDynamics.swift in Sources */,
-				OBJ_56 /* Score+Transform.swift in Sources */,
-				OBJ_57 /* Score.swift in Sources */,
-				OBJ_58 /* XMLElement+Edits.swift in Sources */,
-				OBJ_59 /* XMLElement+Measure.swift in Sources */,
-				OBJ_60 /* XMLElement+MeasureElement.swift in Sources */,
-				OBJ_61 /* main.swift in Sources */,
+				OBJ_48 /* Action+ChoirMP3.swift in Sources */,
+				OBJ_49 /* Action+ChoirVariations.swift in Sources */,
+				OBJ_50 /* Action+ExtractRange.swift in Sources */,
+				OBJ_51 /* Action+Variation.swift in Sources */,
+				OBJ_52 /* Action.swift in Sources */,
+				OBJ_53 /* Measure.swift in Sources */,
+				OBJ_54 /* MuseScore.swift in Sources */,
+				OBJ_55 /* MuseScoreDocument+Swing.swift in Sources */,
+				OBJ_56 /* MuseScoreDocument.swift in Sources */,
+				OBJ_57 /* MuseScoreFile.swift in Sources */,
+				OBJ_58 /* Part.swift in Sources */,
+				OBJ_59 /* Score+Choir.swift in Sources */,
+				OBJ_60 /* Score+ExtractVariation.swift in Sources */,
+				OBJ_61 /* Score+ReduceDynamics.swift in Sources */,
+				OBJ_62 /* Score+Transform.swift in Sources */,
+				OBJ_63 /* Score.swift in Sources */,
+				OBJ_64 /* XMLElement+Edits.swift in Sources */,
+				OBJ_65 /* XMLElement+Measure.swift in Sources */,
+				OBJ_66 /* XMLElement+MeasureElement.swift in Sources */,
+				OBJ_67 /* main.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		OBJ_70 /* Sources */ = {
+		OBJ_76 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 0;
 			files = (
-				OBJ_71 /* Package.swift in Sources */,
+				OBJ_77 /* Package.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		OBJ_75 /* Sources */ = {
+		OBJ_81 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 0;
 			files = (
-				OBJ_76 /* Archive+Reading.swift in Sources */,
-				OBJ_77 /* Archive+Writing.swift in Sources */,
-				OBJ_78 /* Archive.swift in Sources */,
-				OBJ_79 /* Data+Compression.swift in Sources */,
-				OBJ_80 /* Data+Serialization.swift in Sources */,
-				OBJ_81 /* Entry.swift in Sources */,
-				OBJ_82 /* FileManager+ZIP.swift in Sources */,
+				OBJ_82 /* Archive+Reading.swift in Sources */,
+				OBJ_83 /* Archive+Writing.swift in Sources */,
+				OBJ_84 /* Archive.swift in Sources */,
+				OBJ_85 /* Data+Compression.swift in Sources */,
+				OBJ_86 /* Data+Serialization.swift in Sources */,
+				OBJ_87 /* Entry.swift in Sources */,
+				OBJ_88 /* FileManager+ZIP.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		OBJ_88 /* Sources */ = {
+		OBJ_94 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 0;
 			files = (
-				OBJ_89 /* Package.swift in Sources */,
+				OBJ_95 /* Package.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		OBJ_64 /* PBXTargetDependency */ = {
+		OBJ_70 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = "ZIPFoundation::ZIPFoundation" /* ZIPFoundation */;
-			targetProxy = CAA4372621495981007B9FEC /* PBXContainerItemProxy */;
+			targetProxy = CAA4372721495E66007B9FEC /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -380,7 +392,7 @@
 			};
 			name = Release;
 		};
-		OBJ_42 /* Debug */ = {
+		OBJ_45 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				FRAMEWORK_SEARCH_PATHS = (
@@ -400,7 +412,7 @@
 			};
 			name = Debug;
 		};
-		OBJ_43 /* Release */ = {
+		OBJ_46 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				FRAMEWORK_SEARCH_PATHS = (
@@ -420,7 +432,7 @@
 			};
 			name = Release;
 		};
-		OBJ_68 /* Debug */ = {
+		OBJ_74 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				LD = /usr/bin/true;
@@ -429,7 +441,7 @@
 			};
 			name = Debug;
 		};
-		OBJ_69 /* Release */ = {
+		OBJ_75 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				LD = /usr/bin/true;
@@ -438,7 +450,7 @@
 			};
 			name = Release;
 		};
-		OBJ_73 /* Debug */ = {
+		OBJ_79 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ENABLE_TESTABILITY = YES;
@@ -461,7 +473,7 @@
 			};
 			name = Debug;
 		};
-		OBJ_74 /* Release */ = {
+		OBJ_80 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ENABLE_TESTABILITY = YES;
@@ -484,7 +496,7 @@
 			};
 			name = Release;
 		};
-		OBJ_86 /* Debug */ = {
+		OBJ_92 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				LD = /usr/bin/true;
@@ -493,7 +505,7 @@
 			};
 			name = Debug;
 		};
-		OBJ_87 /* Release */ = {
+		OBJ_93 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				LD = /usr/bin/true;
@@ -514,38 +526,38 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		OBJ_41 /* Build configuration list for PBXNativeTarget "ProcessMusicXML" */ = {
+		OBJ_44 /* Build configuration list for PBXNativeTarget "ProcessMusicXML" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				OBJ_42 /* Debug */,
-				OBJ_43 /* Release */,
+				OBJ_45 /* Debug */,
+				OBJ_46 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		OBJ_67 /* Build configuration list for PBXNativeTarget "ProcessMusicXMLPackageDescription" */ = {
+		OBJ_73 /* Build configuration list for PBXNativeTarget "ProcessMusicXMLPackageDescription" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				OBJ_68 /* Debug */,
-				OBJ_69 /* Release */,
+				OBJ_74 /* Debug */,
+				OBJ_75 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		OBJ_72 /* Build configuration list for PBXNativeTarget "ZIPFoundation" */ = {
+		OBJ_78 /* Build configuration list for PBXNativeTarget "ZIPFoundation" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				OBJ_73 /* Debug */,
-				OBJ_74 /* Release */,
+				OBJ_79 /* Debug */,
+				OBJ_80 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		OBJ_85 /* Build configuration list for PBXNativeTarget "ZIPFoundationPackageDescription" */ = {
+		OBJ_91 /* Build configuration list for PBXNativeTarget "ZIPFoundationPackageDescription" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				OBJ_86 /* Debug */,
-				OBJ_87 /* Release */,
+				OBJ_92 /* Debug */,
+				OBJ_93 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
