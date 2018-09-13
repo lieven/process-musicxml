@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "ProcessMusicXML::ProcessMuseScore"
-               BuildableName = "ProcessMuseScore.framework"
-               BlueprintName = "ProcessMuseScore"
+               BlueprintIdentifier = "ProcessMusicXML::ProcessMusicXML"
+               BuildableName = "ProcessMusicXML.framework"
+               BlueprintName = "ProcessMusicXML"
                ReferencedContainer = "container:ProcessMusicXML.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -28,9 +28,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "ProcessMusicXML::ProcessMusicXML"
-               BuildableName = "ProcessMusicXML.framework"
-               BlueprintName = "ProcessMusicXML"
+               BlueprintIdentifier = "ProcessMusicXML::ProcessMuseScore"
+               BuildableName = "ProcessMuseScore.framework"
+               BlueprintName = "ProcessMuseScore"
                ReferencedContainer = "container:ProcessMusicXML.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -73,9 +73,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "ProcessMusicXML::ProcessMuseScore"
-            BuildableName = "ProcessMuseScore.framework"
-            BlueprintName = "ProcessMuseScore"
+            BlueprintIdentifier = "ProcessMusicXML::ProcessMusicXML"
+            BuildableName = "ProcessMusicXML.framework"
+            BlueprintName = "ProcessMusicXML"
             ReferencedContainer = "container:ProcessMusicXML.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
