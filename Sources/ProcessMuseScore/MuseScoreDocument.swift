@@ -6,6 +6,8 @@
 //
 
 import Foundation
+import ProcessMusicXML
+
 
 class MuseScorePart {
 	let element: XMLElement

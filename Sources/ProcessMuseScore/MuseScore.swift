@@ -54,13 +54,13 @@ func execCommand(_ command: String, args: [String], stdout: Bool = true, stderr:
 	return (code: Int(proc.terminationStatus), stdout: String(data: stdoutData, encoding: .utf8), stderr: String(data: stderrData, encoding: .utf8))
 }
 
-class MuseScore {
+public class MuseScore {
 
 	private static var command: String = {
 		return which("mscore") ?? "/Applications/MuseScore 2.app/Contents/MacOS/mscore"
 	}()
 	
-	static func convertToMusicXMLIfNeeded(inputFile: URL) -> URL {
+	public static func convertToMusicXMLIfNeeded(inputFile: URL) -> URL {
 		guard inputFile.pathExtension.lowercased() == "mscz" else {
 			return inputFile
 		}
@@ -69,7 +69,7 @@ class MuseScore {
 		return tempMusicXML
 	}
 	
-	static func convertToMusicXML(museScoreFile: URL, outputFile: URL) {
+	public static func convertToMusicXML(museScoreFile: URL, outputFile: URL) {
 		let exportResult = execCommand(MuseScore.command, args: [ museScoreFile.path, "-o", outputFile.path ])
 		guard exportResult.code == 0 else {
 			fputs("Convert to MusicXML failed\n", stderr)
@@ -80,7 +80,7 @@ class MuseScore {
 		}
 	}
 
-	static func convert(musicXMLFile: URL, outputFile: URL) {
+	public static func convert(musicXMLFile: URL, outputFile: URL) {
 		let exportResult = execCommand(MuseScore.command, args: [ musicXMLFile.path, "-o", outputFile.path ])
 		guard exportResult.code == 0 else {
 			fputs("Export to MuseScore failed\n", stderr)

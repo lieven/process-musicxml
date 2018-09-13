@@ -192,7 +192,7 @@ public class Score {
 		return result
 	}
 	
-	var resultDocument: XMLDocument? {
+	public var resultDocument: XMLDocument? {
 		guard let result = originalDocument.copy() as? XMLDocument else {
 			return nil
 		}

@@ -7,6 +7,8 @@
 //
 
 import Foundation
+import ProcessMusicXML
+import ProcessMuseScore
 
 
 extension Score {
