@@ -7,6 +7,8 @@
 //
 
 import Foundation
+import ProcessMusicXML
+
 
 fileprivate extension Score {
 	func export(choirPart: Part, outputFile: URL) {

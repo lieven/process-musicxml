@@ -8,16 +8,16 @@
 
 import Foundation
 
-class MeasureElement {
-	let element: XMLElement
-	let name: String
-	let duration: Int
-	let musicCounter: Int
-	let movesMusicCounter: Bool
-	let voice: String?
-	let isRest: Bool
+public class MeasureElement {
+	public let element: XMLElement
+	public let name: String
+	public let duration: Int
+	public let musicCounter: Int
+	public let movesMusicCounter: Bool
+	public let voice: String?
+	public let isRest: Bool
 	
-	init?(originalElement: XMLElement, musicCounter: Int) {
+	public init?(originalElement: XMLElement, musicCounter: Int) {
 		guard let element = originalElement.copy() as? XMLElement, let name = element.name else {
 			return nil
 		}
@@ -30,7 +30,7 @@ class MeasureElement {
 		self.isRest = element.isRest
 	}
 	
-	func copy() -> MeasureElement? {
+	public func copy() -> MeasureElement? {
 		return MeasureElement(originalElement: element, musicCounter: musicCounter)
 	}
 	
@@ -55,11 +55,11 @@ class MeasureElement {
 
 
 
-class Measure {
-	var attributes: [String: String] = [:]
-	var childElements: [MeasureElement] = []
+public class Measure {
+	public var attributes: [String: String] = [:]
+	public var childElements: [MeasureElement] = []
 	
-	init?(element: XMLElement) {
+	public init?(element: XMLElement) {
 		guard element.name == "measure" else {
 			return nil
 		}
@@ -87,16 +87,16 @@ class Measure {
 		}
 	}
 	
-	init(copying measure: Measure) {
+	public init(copying measure: Measure) {
 		self.attributes = measure.attributes
 		self.childElements = measure.childElements.compactMap { $0.copy() }
 	}
 	
-	func copy() -> Measure {
+	public func copy() -> Measure {
 		return Measure(copying: self)
 	}
 	
-	func remove(voice: String) {
+	public func remove(voice: String) {
 		childElements = childElements.filter { (child) in
 			if let childVoice = child.voice {
 				return childVoice != voice
@@ -106,7 +106,7 @@ class Measure {
 		}
 	}
 	
-	func keepOnly(voice: String) {
+	public func keepOnly(voice: String) {
 		childElements = childElements.compactMap { (child) in
 			guard let childVoice = child.voice else {
 				return child
@@ -121,7 +121,7 @@ class Measure {
 		}
 	}
 	
-	func overwriteNotesWithThoseFrom(variation: Measure, voice: String) {
+	public func overwriteNotesWithThoseFrom(variation: Measure, voice: String) {
 		let variationElements = variation.childElements.filter { $0.voice == voice }
 		childElements = childElements.filter { !$0.overlaps(with: variationElements) }
 		childElements.append(contentsOf: variationElements.compactMap {
@@ -131,7 +131,7 @@ class Measure {
 		})
 	}
 	
-	var resultElement: XMLElement {
+	public var resultElement: XMLElement {
 		let result = XMLElement(name: "measure")
 		result.setAttributesWith(attributes)
 		

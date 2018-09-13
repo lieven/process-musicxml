@@ -96,7 +96,7 @@ extension Archive {
 		try remove(entry)
 
 		let dataProvider: Provider = { (position, size) in
-			return data.subdata(in: Range(position..<(position+size)))
+			return data.subdata(in: position..<(position+size))
 		}
 
 		try addEntry(with: path, type: .file, uncompressedSize: UInt32(data.count), compressionMethod: .deflate, provider: dataProvider)

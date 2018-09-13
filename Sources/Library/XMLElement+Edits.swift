@@ -9,12 +9,12 @@
 import Foundation
 
 
-extension XMLElement {
-	func getStringValue(child: String) -> String? {
+public extension XMLElement {
+	public func getStringValue(child: String) -> String? {
 		return elements(forName: child).first?.stringValue?.trimmingCharacters(in: .whitespacesAndNewlines)
 	}
 	
-	func set(child: String, stringValue: String?) {
+	public func set(child: String, stringValue: String?) {
 		let existingElement = elements(forName: child).first
 		if let newValue = stringValue {
 			if let element = existingElement {
@@ -27,11 +27,11 @@ extension XMLElement {
 		}
 	}
 	
-	func append(_ suffix: String, toAttributeWithName name: String) {
+	public func append(_ suffix: String, toAttributeWithName name: String) {
 		attribute(forName: name)?.stringValue?.append(suffix)
 	}
 	
-	func append(_ suffix: String, toDescendentsAttributesWithName name: String) {
+	public func append(_ suffix: String, toDescendentsAttributesWithName name: String) {
 		children?.forEach { (node) in
 			if let child = node as? XMLElement {
 				child.append(suffix, toAttributeWithName: name)
@@ -40,14 +40,14 @@ extension XMLElement {
 		}
 	}
 	
-	func replace(_ value: String, with newValue: String, inAttributeWithName name: String) {
+	public func replace(_ value: String, with newValue: String, inAttributeWithName name: String) {
 		guard let attribute = attribute(forName: name) else {
 			return
 		}
 		attribute.stringValue = attribute.stringValue?.replacingOccurrences(of: value, with: newValue)
 	}
 	
-	func replace(_ value: String, with newValue: String, inDescendentsAttributesWithName name: String) {
+	public func replace(_ value: String, with newValue: String, inDescendentsAttributesWithName name: String) {
 		children?.forEach { (node) in
 			if let child = node as? XMLElement {
 				child.replace(value, with: newValue, inAttributeWithName: name)
@@ -56,7 +56,7 @@ extension XMLElement {
 		}
 	}
 	
-	func setAttribute(_ key: String, value: String) {
+	public func setAttribute(_ key: String, value: String) {
 		if let attribute = attribute(forName: key) {
 			attribute.stringValue = value
 		} else {
@@ -66,11 +66,11 @@ extension XMLElement {
 		}
 	}
 	
-	func getAttribute(_ key: String) -> String? {
+	public func getAttribute(_ key: String) -> String? {
 		return attribute(forName: key)?.stringValue
 	}
 	
-	func duplicate() -> XMLElement? {
+	public func duplicate() -> XMLElement? {
 		guard let parent = parent as? XMLElement, let elementCopy = self.copy() as? XMLElement else {
 			return nil
 		}
@@ -80,7 +80,7 @@ extension XMLElement {
 		return elementCopy
 	}
 	
-	func children(name: String) -> [XMLElement] {
+	public func children(name: String) -> [XMLElement] {
 		let results: [XMLElement]? = children?.compactMap {
 			guard let childElement = $0 as? XMLElement, childElement.name == name else {
 				return nil
@@ -91,11 +91,11 @@ extension XMLElement {
 		return results ?? []
 	}
 	
-	func firstChild(name: String) -> XMLElement? {
+	public func firstChild(name: String) -> XMLElement? {
 		return children(name: name).first
 	}
 	
-	func overrideChildren(withThoseOf other: XMLElement) {
+	public func overrideChildren(withThoseOf other: XMLElement) {
 		other.children?.forEach { (otherChild) in
 			guard let otherChildElement = otherChild as? XMLElement, let otherChildName = otherChildElement.name else {
 				return

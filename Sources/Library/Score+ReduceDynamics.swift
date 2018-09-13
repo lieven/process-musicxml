@@ -9,8 +9,8 @@
 import Foundation
 
 
-extension Score {
-	func reduceDynamics() {
+public extension Score {
+	public func reduceDynamics() {
 		for item in partList {
     		if case .part(let part) = item {
 				part.reduceDynamics()
@@ -20,24 +20,24 @@ extension Score {
 	
 }
 
-extension Part {
-	func reduceDynamics() {
+public extension Part {
+	public func reduceDynamics() {
 		for measure in measures {
 			measure.reduceDynamics()
 		}
 	}
 }
 
-extension Measure {
-	func reduceDynamics() {
+public extension Measure {
+	public func reduceDynamics() {
 		for element in childElements {
 			element.reduceDynamics()
 		}
 	}
 }
 
-extension MeasureElement {
-	func reduceDynamics() {
+public extension MeasureElement {
+	public func reduceDynamics() {
 		guard name == "direction" else { return }
 		
 		let defaultDynamics = 80

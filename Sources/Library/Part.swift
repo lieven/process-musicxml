@@ -9,23 +9,23 @@
 import Foundation
 
 
-class Part {
-	let metadata: PartListElement
-	var measures: [Measure]
+public class Part {
+	public let metadata: PartListElement
+	public var measures: [Measure]
 	
-	init(metadata: PartListElement, measures: [Measure] = []) {
+	public init(metadata: PartListElement, measures: [Measure] = []) {
 		self.metadata = metadata
 		self.measures = measures
 	}
 	
-	var resultElement: XMLElement {
+	public var resultElement: XMLElement {
 		let result = XMLElement(name: "part")
 		result.setAttributesWith(["id": metadata.identifier])
 		result.setChildren(measures.map { $0.resultElement })
 		return result
 	}
 	
-	var voices: Set<String> {
+	public var voices: Set<String> {
 		var voices = Set<String>()
 		measures.forEach {
 			$0.childElements.forEach { 

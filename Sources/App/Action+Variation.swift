@@ -7,11 +7,12 @@
 //
 
 import Foundation
+import ProcessMusicXML
 
 extension Action {
 	func performVariationAction(args: VariationArgs) {
 		Score.transform(inputURL: args.inputURL, outputURL: args.outputURL) { (score) in
-			score.extractVariation(
+			try score.extractVariation(
 				basePartID: args.basePartID, baseVoice: args.baseVoice,
 				variationPartID: args.variationPartID, variationVoice: args.variationVoice, cut: true,
 				destinationPartName: args.newPartName
@@ -71,7 +72,6 @@ struct VariationArgs {
 	}
 }
 
-
 fileprivate enum VariationArgIndex: Int {
 	case inputPath = 0
 	case basePartID
@@ -85,5 +85,15 @@ fileprivate enum VariationArgIndex: Int {
 fileprivate extension Array {
 	subscript (safe index: VariationArgIndex) -> Iterator.Element? {
 		return self[safe: index.rawValue]
+	}
+}
+
+
+extension Array {
+	subscript (safe index: Int) -> Iterator.Element? {
+		guard index >= 0, index < count else {
+			return nil
+		}
+		return self[index]
 	}
 }

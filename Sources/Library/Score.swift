@@ -8,15 +8,15 @@
 
 import Foundation
 
-class PartListElement {
-	var identifier: String {
+public class PartListElement {
+	public var identifier: String {
 		didSet {
 			element.setAttribute("id", value: identifier)
 			element.replace(oldValue, with: identifier, inDescendentsAttributesWithName: "id")
 		}
 	}
 	
-	var name: String {
+	public var name: String {
 		didSet {
 			if let existing = element.elements(forName: "part-name").first {
 				existing.stringValue = name
@@ -39,15 +39,15 @@ class PartListElement {
 		}
 	}
 	
-	var volume: String? {
+	public var volume: String? {
 		didSet {
 			element.elements(forName: "midi-instrument").first?.elements(forName: "volume").first?.stringValue = volume
 		}
 	}
 	
-	let element: XMLElement
+	public let element: XMLElement
 	
-	init?(element originalElement: XMLElement) {
+	public init?(element originalElement: XMLElement) {
 		guard originalElement.name == "score-part", let element = originalElement.copy() as? XMLElement else {
 			return nil
 		}
@@ -67,14 +67,14 @@ class PartListElement {
 	}
 }
 
-enum PartListItem {
+public enum PartListItem {
 	case part(Part)
 	case other(XMLElement)
 }
 
 
 
-extension PartListItem {
+public extension PartListItem {
 	init?(element: XMLElement, measures: [String: [Measure]]) {
 		if element.name == "score-part" {
 			guard let metadata = PartListElement(element: element) else {
@@ -114,12 +114,12 @@ extension PartListItem {
 }
 
 
-class Score {
-	let originalDocument: XMLDocument
-	let headerElements: [XMLElement]
-	var partList: [PartListItem]
+public class Score {
+	public let originalDocument: XMLDocument
+	public let headerElements: [XMLElement]
+	public var partList: [PartListItem]
 	
-	init?(document originalDocument: XMLDocument) {
+	public init?(document originalDocument: XMLDocument) {
 		guard let rootElement = originalDocument.rootElement(), rootElement.name == "score-partwise" else {
 			return nil
 		}

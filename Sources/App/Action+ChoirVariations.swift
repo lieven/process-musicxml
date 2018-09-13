@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import ProcessMusicXML
 
 extension Action {
 	func performChoirVariationsAction(inputPath: String, outputPath: String?) {

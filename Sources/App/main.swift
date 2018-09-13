@@ -9,18 +9,6 @@
 import Foundation
 
 
-extension Array {
-	
-	subscript (safe index: Int) -> Iterator.Element? {
-		guard indices.contains(index) else {
-			return nil
-		}
-		
-		return self[index]
-	}
-	
-}
-
 func printUsage(action: Action? = nil, errorMessage: String? = nil) {
 	if let errorMessage = errorMessage {
 		fputs("\(errorMessage)\n", stderr)

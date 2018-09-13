@@ -8,10 +8,21 @@
 
 import Foundation
 
+enum ExtractVariationError: Error {
+	case invalidParameter(_ message: String)
+	
+	var localizedDescription: String {
+		switch self {
+		case .invalidParameter(let message):
+			return "Invalid parameter: \(message)"
+		}
+	}
+}
+
 
 extension Score {
 
-	func extractVariation(basePartID: String, baseVoice: String, variationPartID: String, variationVoice: String, cut: Bool, destinationPartName: String) {
+	public func extractVariation(basePartID: String, baseVoice: String, variationPartID: String, variationVoice: String, cut: Bool, destinationPartName: String) throws {
 		let partIDsAndNames: [(String, String)] = partList.compactMap {
 			switch $0 {
 				case .part(let part):
@@ -24,13 +35,11 @@ extension Score {
 		let partIDsString = partIDsAndNames.map { "- \($0.0): \($0.1)" }.joined(separator: "\n")
 		
 		guard let basePart = part(identifier: basePartID) else {
-			printUsage(errorMessage: "No such base part: \(basePartID):\n\(partIDsString)")
-			exit(1)
+			throw ExtractVariationError.invalidParameter("No such base part: \(basePartID):\n\(partIDsString)")
 		}
 
 		guard let variationPart = part(identifier: variationPartID) else {
-			printUsage(errorMessage: "No such variation part: \(variationPartID):\n\(partIDsString)")
-			exit(1)
+			throw ExtractVariationError.invalidParameter("No such variation part: \(variationPartID):\n\(partIDsString)")
 		}
 		
 		extractVariation(basePart: basePart, baseVoice: baseVoice, variationPart: variationPart, variationVoice: variationVoice, cut: cut, destinationPartName: destinationPartName)

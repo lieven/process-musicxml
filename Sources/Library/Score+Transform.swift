@@ -11,15 +11,15 @@ import Foundation
 
 extension Score {
 
-	convenience init?(musicXMLFile: URL) throws {
+	public convenience init?(musicXMLFile: URL) throws {
 		self.init(document: try XMLDocument(contentsOf: musicXMLFile, options: []))
 	}
 	
-	convenience init?(inputFile: URL) throws {
+	public convenience init?(inputFile: URL) throws {
 		try self.init(musicXMLFile: MuseScore.convertToMusicXMLIfNeeded(inputFile: inputFile))
 	}
 	
-	func export(outputFile: URL) {
+	public func export(outputFile: URL) {
 		guard let resultDocument = resultDocument else {
 			fputs("No result document", stderr)
 			exit(1)
@@ -46,14 +46,14 @@ extension Score {
 		}
 	}
 	
-	static func transform(inputURL: URL, outputURL: URL, action: (Score) -> Void) {
+	public static func transform(inputURL: URL, outputURL: URL, action: (Score) throws -> Void) {
 		do {
 			guard let score = try Score(inputFile: inputURL) else {
 				fputs("Could not parse score\n", stderr)
 				exit(1)
 			}
 			
-			action(score)
+			try action(score)
 			
 			score.export(outputFile: outputURL)
 		} catch {

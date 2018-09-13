@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import ProcessMusicXML
 
 extension MeasureElement {
 	func overrideChildren(attributesElement other: MeasureElement) {
