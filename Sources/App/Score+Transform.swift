@@ -44,7 +44,12 @@ extension Score {
 		}
 		
 		if outputExtension != "xml" {
-			MuseScore.convert(musicXMLFile: outputMusicXML, outputFile: outputFile)
+			do {
+				try MuseScore.convert(inputFile: outputMusicXML, outputFile: outputFile)
+			} catch {
+				fputs("Could not export MusicXML to \(outputExtension): \(error)\n", stderr)
+				exit(1)
+			}
 		}
 	}
 	

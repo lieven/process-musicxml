@@ -54,6 +54,10 @@ func execCommand(_ command: String, args: [String], stdout: Bool = true, stderr:
 	return (code: Int(proc.terminationStatus), stdout: String(data: stdoutData, encoding: .utf8), stderr: String(data: stderrData, encoding: .utf8))
 }
 
+enum MuseScoreError: Error {
+	case exportFailed(_ resultCode: Int)
+}
+
 public class MuseScore {
 
 	private static var command: String = {
@@ -80,14 +84,15 @@ public class MuseScore {
 		}
 	}
 
-	public static func convert(musicXMLFile: URL, outputFile: URL) {
-		let exportResult = execCommand(MuseScore.command, args: [ musicXMLFile.path, "-o", outputFile.path ])
+	public static func convert(inputFile: URL, outputFile: URL) throws {
+		let exportResult = execCommand(MuseScore.command, args: [ inputFile.path, "-o", outputFile.path ])
 		guard exportResult.code == 0 else {
-			fputs("Export to MuseScore failed\n", stderr)
+			throw MuseScoreError.exportFailed(exportResult.code)
+			/*fputs("Export to MuseScore failed\n", stderr)
 			if let stderrOutput = exportResult.stderr {
 				fputs(stderrOutput, stderr)
 			}
-			exit(1)
+			exit(1)*/
 		}
 	}
 }

@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "ProcessMusicXML::ProcessMusicXML"
-               BuildableName = "ProcessMusicXML.framework"
-               BlueprintName = "ProcessMusicXML"
+               BlueprintIdentifier = "ProcessMusicXML::process_musicxml"
+               BuildableName = "process_musicxml"
+               BlueprintName = "process_musicxml"
                ReferencedContainer = "container:ProcessMusicXML.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -42,9 +42,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "ProcessMusicXML::process_musicxml"
-               BuildableName = "process_musicxml"
-               BlueprintName = "process_musicxml"
+               BlueprintIdentifier = "ProcessMusicXML::ProcessMusicXML"
+               BuildableName = "ProcessMusicXML.framework"
+               BlueprintName = "ProcessMusicXML"
                ReferencedContainer = "container:ProcessMusicXML.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -73,9 +73,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "ProcessMusicXML::ProcessMusicXML"
-            BuildableName = "ProcessMusicXML.framework"
-            BlueprintName = "ProcessMusicXML"
+            BlueprintIdentifier = "ProcessMusicXML::process_musicxml"
+            BuildableName = "process_musicxml"
+            BlueprintName = "process_musicxml"
             ReferencedContainer = "container:ProcessMusicXML.xcodeproj">
          </BuildableReference>
       </MacroExpansion>

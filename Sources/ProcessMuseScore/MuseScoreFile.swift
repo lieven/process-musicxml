@@ -27,7 +27,7 @@ extension MuseScoreFileType {
 	}
 	
 	private func loadMSCX(url: URL) throws -> XMLDocument {
-		return try XMLDocument(contentsOf: url, options: [])
+		return try XMLDocument(contentsOf: url, options: [.nodePreserveAll])
 	}
 	
 	private func loadMSCZ(url: URL) throws -> (Archive, Entry, XMLDocument)? {
@@ -44,19 +44,19 @@ extension MuseScoreFileType {
 			mscxData.append(chunk)
 		}
 		
-		return (archive, entry, try XMLDocument(data: mscxData))
+		return (archive, entry, try XMLDocument(data: mscxData, options: [.nodePreserveAll]))
 	}
 }
 
 
 
-class MuseScoreFile {
-	let document: MuseScoreDocument
+public class MuseScoreFile {
+	public let document: MuseScoreDocument
 	let url: URL
 	let archive: Archive?
 	let entry: Entry?
 
-	init?(url: URL) throws {
+	public init?(url: URL) throws {
 		self.url = url
 		
 		guard let type = MuseScoreFileType(rawValue: url.pathExtension) else {
@@ -75,14 +75,21 @@ class MuseScoreFile {
 		self.entry = entry
 	}
 	
-	func save() throws {
-		let xmlData = document.document.xmlData
+	private var xmlData: Data {
+		return document.xmlDocument.xmlData(options: [.nodePreserveAll])
+	}
+	
+	public func save() throws {
 	
 		if let archive = archive, let entry = entry {
 			try archive.replace(entry: entry, with: xmlData)
 		} else {
-			try xmlData.write(to: url)
+			try save(to: url)
 		}
+	}
+	
+	public func save(to url: URL) throws {
+		try xmlData.write(to: url)
 	}
 }
 
