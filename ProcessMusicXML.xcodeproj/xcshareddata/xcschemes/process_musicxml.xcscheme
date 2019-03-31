@@ -52,6 +52,36 @@
             ReferencedContainer = "container:ProcessMusicXML.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
+      <CommandLineArguments>
+         <CommandLineArgument
+            argument = "choirVariations"
+            isEnabled = "NO">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "choirMP3"
+            isEnabled = "YES">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "&quot;/Users/lieven/Desktop/Liedjes coromain.be/2018-2019/Something in the Dark/Something in the Dark.mscz&quot;"
+            isEnabled = "NO">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "&quot;/Users/lieven/Desktop/Liedjes coromain.be/2018-2019/Something in the Dark/Something in the Dark-MP3.mscz&quot;"
+            isEnabled = "NO">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "&quot;/Users/lieven/Desktop/Pa pa pa... pa pa.mscz&quot;"
+            isEnabled = "NO">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "&quot;/Users/lieven/Desktop/uncompressed.mscx&quot;"
+            isEnabled = "NO">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "&quot;/Users/lieven/Desktop/coromain.be - liedjes/2018-2019/May It Be/May It Be-MP3-v3.mscz&quot;"
+            isEnabled = "YES">
+         </CommandLineArgument>
+      </CommandLineArguments>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>

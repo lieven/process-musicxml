@@ -5,7 +5,7 @@ Command-line tool to automate some repetitive operations on music scores.
 ## Building
 
 ```
-swift build -Xswiftc "-target" -Xswiftc "x86_64-apple-macosx10.12
+swift build -Xswiftc "-target" -Xswiftc "x86_64-apple-macosx10.12"
 ```
 
 ## Commands

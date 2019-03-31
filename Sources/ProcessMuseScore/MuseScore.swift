@@ -61,7 +61,7 @@ enum MuseScoreError: Error {
 public class MuseScore {
 
 	private static var command: String = {
-		return which("mscore") ?? "/Applications/MuseScore 2.app/Contents/MacOS/mscore"
+		return which("mscore") ?? "/Applications/MuseScore 3.app/Contents/MacOS/mscore"
 	}()
 	
 	public static func convertToMusicXMLIfNeeded(inputFile: URL) -> URL {
