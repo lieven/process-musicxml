@@ -34,10 +34,21 @@ extension Score {
 		return partWithName(in: [ "men", "mannen", "tenor/bas", "tenor\nbas", "tenor/bass", "tenor\nbass" ])
 	}
 	
+	public var highVoicesPart: Part? {
+		return partWithName(in: [ "sopraan/tenor", "sopraan\ntenor" ])
+	}
+	
+	public var lowVoicesPart: Part? {
+		return partWithName(in: [ "alt/bas", "alt\nbas" ])
+	}
+	
+	
 	private func partWithName(in namesList: [String]) -> Part? {
 		for item in partList {
-			if case .part(let part) = item, namesList.contains(part.metadata.name.lowercased()) {
-				return part
+			if case .part(let part) = item {
+				if namesList.contains(part.metadata.name.lowercased()) {
+					return part
+				}
 			}
 		}
 		return nil

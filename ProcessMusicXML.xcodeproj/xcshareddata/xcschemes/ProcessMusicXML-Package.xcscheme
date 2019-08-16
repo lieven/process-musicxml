@@ -14,20 +14,6 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "ProcessMusicXML::process_musicxml"
-               BuildableName = "process_musicxml"
-               BlueprintName = "process_musicxml"
-               ReferencedContainer = "container:ProcessMusicXML.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
                BlueprintIdentifier = "ProcessMusicXML::ProcessMuseScore"
                BuildableName = "ProcessMuseScore.framework"
                BlueprintName = "ProcessMuseScore"
@@ -45,6 +31,20 @@
                BlueprintIdentifier = "ProcessMusicXML::ProcessMusicXML"
                BuildableName = "ProcessMusicXML.framework"
                BlueprintName = "ProcessMusicXML"
+               ReferencedContainer = "container:ProcessMusicXML.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "ProcessMusicXML::process_musicxml"
+               BuildableName = "process_musicxml"
+               BlueprintName = "process_musicxml"
                ReferencedContainer = "container:ProcessMusicXML.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -73,9 +73,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "ProcessMusicXML::process_musicxml"
-            BuildableName = "process_musicxml"
-            BlueprintName = "process_musicxml"
+            BlueprintIdentifier = "ProcessMusicXML::ProcessMuseScore"
+            BuildableName = "ProcessMuseScore.framework"
+            BlueprintName = "ProcessMuseScore"
             ReferencedContainer = "container:ProcessMusicXML.xcodeproj">
          </BuildableReference>
       </MacroExpansion>

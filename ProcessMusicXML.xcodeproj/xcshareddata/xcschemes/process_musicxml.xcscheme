@@ -54,31 +54,19 @@
       </BuildableProductRunnable>
       <CommandLineArguments>
          <CommandLineArgument
-            argument = "choirVariations"
+            argument = "choirMP3"
             isEnabled = "NO">
          </CommandLineArgument>
          <CommandLineArgument
-            argument = "choirMP3"
+            argument = "/Users/lieven/Desktop/ProcessMuseScoreTest-variations.mscz"
+            isEnabled = "NO">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "choirVariations"
             isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument
-            argument = "&quot;/Users/lieven/Desktop/Liedjes coromain.be/2018-2019/Something in the Dark/Something in the Dark.mscz&quot;"
-            isEnabled = "NO">
-         </CommandLineArgument>
-         <CommandLineArgument
-            argument = "&quot;/Users/lieven/Desktop/Liedjes coromain.be/2018-2019/Something in the Dark/Something in the Dark-MP3.mscz&quot;"
-            isEnabled = "NO">
-         </CommandLineArgument>
-         <CommandLineArgument
-            argument = "&quot;/Users/lieven/Desktop/Pa pa pa... pa pa.mscz&quot;"
-            isEnabled = "NO">
-         </CommandLineArgument>
-         <CommandLineArgument
-            argument = "&quot;/Users/lieven/Desktop/uncompressed.mscx&quot;"
-            isEnabled = "NO">
-         </CommandLineArgument>
-         <CommandLineArgument
-            argument = "&quot;/Users/lieven/Desktop/coromain.be - liedjes/2018-2019/May It Be/May It Be-MP3-v3.mscz&quot;"
+            argument = "/Users/lieven/Desktop/ProcessMuseScoreTest.mscz"
             isEnabled = "YES">
          </CommandLineArgument>
       </CommandLineArguments>

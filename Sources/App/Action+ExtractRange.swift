@@ -64,7 +64,7 @@ extension Score {
     				}
     				
     				if let joinedAttributesElement = joinedAttributesElement {
-    					if let existingIndex = firstMeasure.childElements.index(where: { $0.name == "attributes" }) {
+    					if let existingIndex = firstMeasure.childElements.firstIndex(where: { $0.name == "attributes" }) {
     						joinedAttributesElement.overrideChildren(attributesElement: firstMeasure.childElements[existingIndex])
 							firstMeasure.childElements[existingIndex] = joinedAttributesElement
     					} else {

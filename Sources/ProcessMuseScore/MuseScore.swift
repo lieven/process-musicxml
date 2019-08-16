@@ -8,22 +8,6 @@
 
 import Foundation
 
-func which(_ command: String) -> String? {
-	let result = execCommand("/usr/bin/which", args: [command])
-	guard result.code == 0 else {
-		fputs("which \(command) failed: code = \(result.code)\n", stderr)
-		if let stderrOutput = result.stderr {
-			fputs(stderrOutput, stderr)
-		}
-		return nil
-	}
-	
-	guard let trimmedResult = result.stdout?.trimmingCharacters(in: .whitespacesAndNewlines), trimmedResult.count > 0 else {
-		return nil
-	}
-	
-	return trimmedResult
-}
 
 func execCommand(_ command: String, args: [String], stdout: Bool = true, stderr: Bool = true) -> (code: Int, stdout: String?, stderr: String?) {
 	let stdoutPipe = Pipe()
@@ -61,7 +45,7 @@ enum MuseScoreError: Error {
 public class MuseScore {
 
 	private static var command: String = {
-		return which("mscore") ?? "/Applications/MuseScore 3.app/Contents/MacOS/mscore"
+		return "/Applications/MuseScore 3.app/Contents/MacOS/mscore"
 	}()
 	
 	public static func convertToMusicXMLIfNeeded(inputFile: URL) -> URL {

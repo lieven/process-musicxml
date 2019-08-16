@@ -161,7 +161,7 @@ public class Score {
 	}
 	
 	func partIndex(identifier: String) -> Int? {
-		return partList.index { (item) in
+		return partList.firstIndex { (item) in
 			if case .part(let part) = item, part.metadata.identifier == identifier {
 				return true
 			}
