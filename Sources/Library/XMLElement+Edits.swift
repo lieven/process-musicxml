@@ -56,7 +56,12 @@ public extension XMLElement {
 		}
 	}
 	
-	func setAttribute(_ key: String, value: String) {
+	func setAttribute(_ key: String, value: String?) {
+		guard let value = value else {
+			removeAttribute(forName: key)
+			return
+		}
+		
 		if let attribute = attribute(forName: key) {
 			attribute.stringValue = value
 		} else {
@@ -95,6 +100,14 @@ public extension XMLElement {
 		return children(name: name).first
 	}
 	
+	func insert(_ node: XMLNode, after: XMLNode?) {
+		if let after = after, after.parent == self {
+			insertChild(node, at: after.index + 1)
+		} else {
+			addChild(node)
+		}
+	}
+	
 	func overrideChildren(withThoseOf other: XMLElement) {
 		other.children?.forEach { (otherChild) in
 			guard let otherChildElement = otherChild as? XMLElement, let otherChildName = otherChildElement.name else {
@@ -104,6 +117,23 @@ public extension XMLElement {
 			if let existingChild = firstChild(name: otherChildName), let otherChildCopy = otherChildElement.copy() as? XMLElement {
 				replaceChild(at: existingChild.index, with: otherChildCopy)
 			}
+		}
+	}
+	
+	func replaceChildren(name: String, with other: [XMLElement]) {
+		var lastIndex: Int?
+		
+		while let lastChild = children(name: name).last {
+			let index = lastChild.index
+			removeChild(at: index)
+			lastIndex = index
+		}
+		
+		var insertAtIndex = lastIndex ?? children?.count ?? 0
+		
+		for element in other {
+			insertChild(element, at: insertAtIndex)
+			insertAtIndex += 1
 		}
 	}
 }

@@ -7,13 +7,17 @@
 
 import Foundation
 
-public class MuseScoreMeasure {
-	let element: XMLElement
+public class MuseScoreMeasure: ManagedXMLElement {
+	public let element: XMLElement
 	
-	init?(element: XMLElement) {
+	required public init?(element: XMLElement) {
 		guard element.name == "Measure" else {
 			return nil
 		}
 		self.element = element
+	}
+	
+	var voices: [XMLElement] {
+		return element.elements(forName: "voice")
 	}
 }

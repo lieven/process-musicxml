@@ -58,16 +58,24 @@
             isEnabled = "NO">
          </CommandLineArgument>
          <CommandLineArgument
-            argument = "/Users/lieven/Desktop/ProcessMuseScoreTest-variations.mscz"
-            isEnabled = "NO">
-         </CommandLineArgument>
-         <CommandLineArgument
             argument = "choirVariations"
             isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument
-            argument = "/Users/lieven/Desktop/ProcessMuseScoreTest.mscz"
+            argument = "$(SRCROOT)/Tests/ProcessMuseScore/ProcessMuseScoreTest.mscx"
             isEnabled = "YES">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "$(SRCROOT)/TestOutput/ProcessMuseScoreTest-variations.mscx"
+            isEnabled = "YES">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "$(SRCROOT)/TestOutput/ProcessMuseScoreTest-variations.mscz"
+            isEnabled = "NO">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "$(SRCROOT)/TestOutput/ProcessMuseScoreTest.mscz"
+            isEnabled = "NO">
          </CommandLineArgument>
       </CommandLineArguments>
       <AdditionalOptions>

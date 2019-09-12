@@ -8,10 +8,10 @@
 import Foundation
 
 
-public class MuseScorePart {
-	let element: XMLElement
+public class MuseScorePart: ManagedXMLElement {
+	public let element: XMLElement
 	
-	init?(element: XMLElement) {
+	required public init?(element: XMLElement) {
 		guard element.name == "Part" else {
 			return nil
 		}
@@ -24,6 +24,38 @@ public class MuseScorePart {
 		}
 		set {
 			element.set(child: "trackName", stringValue: newValue)
+			instrumentElement?.set(child: "trackName", stringValue: newValue)
+		}
+	}
+	
+	public var longInstrumentName: String? {
+		get {
+			return instrumentElement?.getStringValue(child: "longName")
+		}
+		set {
+			instrumentElement?.set(child: "longName", stringValue: newValue)
+		}
+	}
+	
+	public var shortInstrumentName: String? {
+		get {
+			return instrumentElement?.getStringValue(child: "shortName")
+		}
+		set {
+			instrumentElement?.set(child: "shortName", stringValue: newValue)
+		}
+	}
+	
+	fileprivate var staffElement: XMLElement? {
+		return element.elements(forName: "Staff").first
+	}
+	
+	var staffID: String? {
+		get {
+			return staffElement?.getAttribute("id")
+		}
+		set {
+			staffElement?.setAttribute("id", value: newValue)
 		}
 	}
 	

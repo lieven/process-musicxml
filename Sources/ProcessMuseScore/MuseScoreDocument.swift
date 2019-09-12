@@ -11,10 +11,11 @@ import ProcessMusicXML
 
 
 public class MuseScoreDocument {
-	public let xmlDocument: XMLDocument
+	let document: XMLDocument
+	
 	let scoreElement: XMLElement
-	public let parts: [MuseScorePart]
-	public let staffs: [MuseScoreStaff]
+	public private(set) var parts: [MuseScorePart]
+	public private(set) var staffs: [MuseScoreStaff]
 	
 	init?(document: XMLDocument) {
 		guard let rootElement = document.rootElement(), rootElement.name == "museScore" else {
@@ -27,10 +28,46 @@ public class MuseScoreDocument {
 			return nil
 		}
 		
-		self.xmlDocument = document
+		self.document = document
 		self.scoreElement = scoreElement
 		self.parts = scoreElement.elements(forName: "Part").compactMap { MuseScorePart(element: $0) }
 		self.staffs = scoreElement.elements(forName: "Staff").compactMap { MuseScoreStaff(element: $0) }
 	}
 	
+	func staff(identifier: String) -> MuseScoreStaff? {
+		return staffs.first { $0.identifier == identifier }
+	}
+	
+	func staff(part: MuseScorePart) -> MuseScoreStaff? {
+		guard let staffID = part.staffID else {
+			return nil
+		}
+		return staff(identifier: staffID)
+	}
+	
+	func addPart(_ newPart: MuseScorePart, staff newStaff: MuseScoreStaff, after: MuseScorePart? = nil) {
+		parts.insert(newPart, after: after, parent: scoreElement)
+		
+		let afterStaff: MuseScoreStaff?
+		if let afterPart = after {
+			afterStaff = self.staff(part: afterPart)
+		} else {
+			afterStaff = nil
+		}
+		
+		staffs.insert(newStaff, after: afterStaff, parent: scoreElement)
+		
+		
+		// Rewrite identifiers, since order matters
+		var identifier = 1
+		let partsAndStaffs = parts.map { ($0, staff(part: $0)) }
+		for (part, staff) in partsAndStaffs {
+			let newID = "\(identifier)"
+			
+			staff?.identifier = newID
+			part.staffID = newID
+			
+			identifier += 1
+		}
+	}
 }

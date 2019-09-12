@@ -31,27 +31,15 @@ fileprivate extension MuseScoreFile {
 			part.volume = part.name == currentPartName ? 1.0 : 0.33
 		}
 		
-		try save(to: outputFile)
+		try export(to: outputFile)
 	}
 }
 
 
 extension Action {
-	fileprivate static let choirPartNames = [
-		"sopraan", "soprano",
-		"mezzo-sopraan", "mezzo-soprano",
-		"mezzo",
-		"vrouwen", "women", "sopraan/alt",
-		"mezzo-alt", "mezzo-alto",
-		"alt", "alto",
-		"tenor",
-		"bari-tenor",
-		"bariton", "mannen", "men", "tenor/bas",
-		"bari-bas",
-		"bas", "bass",
-		"sopraan/tenor", "soprano/tenor",
-		"alt/bas", "alto/bass"
-	]
+	fileprivate static let choirPartNames: [String] = {
+		return ChoirVoice.allCases.map({ $0.names }).flatMap { $0 }
+	}()
 	
 	func performChoirMP3Action(inputPath: String, outputPath: String?) {
 		do {
