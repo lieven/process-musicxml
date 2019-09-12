@@ -62,19 +62,27 @@
             isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument
-            argument = "$(SRCROOT)/Tests/ProcessMuseScore/ProcessMuseScoreTest.mscx"
+            argument = "$(SRCROOT)/Tests/ProcessMuseScoreTest.mscx"
+            isEnabled = "NO">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "$(SRCROOT)/Tests/ProcessMuseScoreTest.mscz"
+            isEnabled = "NO">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "$(SRCROOT)/Tests/viva.mscz"
             isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument
             argument = "$(SRCROOT)/TestOutput/ProcessMuseScoreTest-variations.mscx"
+            isEnabled = "NO">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "$(SRCROOT)/TestOutput/viva-variations.mscx"
             isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument
             argument = "$(SRCROOT)/TestOutput/ProcessMuseScoreTest-variations.mscz"
-            isEnabled = "NO">
-         </CommandLineArgument>
-         <CommandLineArgument
-            argument = "$(SRCROOT)/TestOutput/ProcessMuseScoreTest.mscz"
             isEnabled = "NO">
          </CommandLineArgument>
       </CommandLineArguments>

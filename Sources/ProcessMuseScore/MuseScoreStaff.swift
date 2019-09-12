@@ -59,7 +59,11 @@ public class MuseScoreStaff: ManagedXMLElement {
 		}
 	}
 	
-	public let measures: [MuseScoreMeasure]
+	public var measures: [MuseScoreMeasure] {
+		didSet {
+			element.replaceChildren(name: "Measure", with: measures.map { $0.element })
+		}
+	}
 	
 	required public init?(element: XMLElement) {
 		guard element.name == "Staff" else {

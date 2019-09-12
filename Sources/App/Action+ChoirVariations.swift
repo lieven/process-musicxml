@@ -44,7 +44,13 @@ extension Action {
 		if let soprano = document.choirPart(.soprano), let alto = document.choirPart(.alto) {
 			document.extractMezzos(soprano: soprano, alto: alto)
 		} else if let women = document.choirPart(.women) {
-			print("TODO: split women")
+			document.splitWomen(part: women)
+		}
+		
+		if let tenor = document.choirPart(.tenor), let bass = document.choirPart(.bass) {
+			document.extractBaritones(tenor: tenor, bass: bass)
+		} else if let men = document.choirPart(.men) {
+			document.splitMen(part: men)
 		}
 		
 		do {
