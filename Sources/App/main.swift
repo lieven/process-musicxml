@@ -22,7 +22,7 @@ func printUsage(action: Action? = nil, errorMessage: String? = nil) {
 	}
 	
 	actions.forEach { (action) in
-		fputs("Usage: ProcessMusicXML \(action.verb) \(action.usage)\n", stderr)
+		action.printUsage()
 	}
 }
 
