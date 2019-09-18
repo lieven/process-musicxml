@@ -10,32 +10,65 @@ import Foundation
 
 extension Score {
 	
-	var sopranoPart: Part? {
+	public var sopranoPart: Part? {
 		return partWithName(in: [ "sopraan", "soprano" ])
 	}
 	
-	var altoPart: Part? {
+	public var altoPart: Part? {
 		return partWithName(in: [ "alt", "alto" ])
 	}
 	
-	var tenorPart: Part? {
+	public var womenPart: Part? {
+		return partWithName(in: [ "women", "vrouwen", "sopraan/alt", "sopraan\nalt", "soprano/alto", "soprano\nalto" ])
+	}
+	
+	public var tenorPart: Part? {
 		return partWithName(in: [ "tenor" ])
 	}
 	
-	var bassPart: Part? {
+	public var bassPart: Part? {
 		return partWithName(in: [ "bass", "bas" ])
 	}
 	
+	public var menPart: Part? {
+		return partWithName(in: [ "men", "mannen", "tenor/bas", "tenor\nbas", "tenor/bass", "tenor\nbass" ])
+	}
+	
+	public var highVoicesPart: Part? {
+		return partWithName(in: [ "sopraan/tenor", "sopraan\ntenor" ])
+	}
+	
+	public var lowVoicesPart: Part? {
+		return partWithName(in: [ "alt/bas", "alt\nbas" ])
+	}
+	
+	
 	private func partWithName(in namesList: [String]) -> Part? {
 		for item in partList {
-			if case .part(let part) = item, namesList.contains(part.metadata.name.lowercased()) {
-				return part
+			if case .part(let part) = item {
+				if namesList.contains(part.metadata.name.lowercased()) {
+					return part
+				}
 			}
 		}
 		return nil
 	}
 	
-	func extractMezzos(soprano: Part, alto: Part) {
+	public func splitWomen(part: Part) {
+		if part.voices.contains("2") {
+			extractVariation(basePart: part, baseVoice: "1", variationPart: part, variationVoice: "2", cut: true, destinationPartName: "Alt")
+			part.metadata.name = "Sopraan"
+		}
+	}
+	
+	public func splitMen(part: Part) {
+		if part.voices.contains("2") {
+			extractVariation(basePart: part, baseVoice: "1", variationPart: part, variationVoice: "2", cut: true, destinationPartName: "Bas")
+			part.metadata.name = "Tenor"
+		}
+	}
+	
+	public func extractMezzos(soprano: Part, alto: Part) {
 		if soprano.voices.contains("2") {
 			if alto.voices.contains("2") {
 				extractVariation(basePart: soprano, baseVoice: "1", variationPart: soprano, variationVoice: "2", cut: true, destinationPartName: "Mezzo-Sopraan")
@@ -50,7 +83,7 @@ extension Score {
 		}
 	}
 	
-	func extractBaritones(tenor: Part, bass: Part) {
+	public func extractBaritones(tenor: Part, bass: Part) {
 		if tenor.voices.contains("2") {
 			if bass.voices.contains("2") {
 				extractVariation(basePart: tenor, baseVoice: "1", variationPart: tenor, variationVoice: "2", cut: true, destinationPartName: "Bari-Tenor")

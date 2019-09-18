@@ -109,7 +109,7 @@ enum Action {
 	}
 	
 	func printUsage() {
-		fputs("Usage: ProcessMusicXML \(verb) \(usage)\n", stderr)
+		fputs("Usage: process_musicxml \(verb) \(usage)\n", stderr)
 	}
 }
 

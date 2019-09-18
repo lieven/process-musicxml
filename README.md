@@ -2,6 +2,18 @@
 
 Command-line tool to automate some repetitive operations on music scores.
 
+## Building
+
+```
+swift build
+```
+
+or, if you want to use Xcode:
+
+```
+swift package generate-xcodeproj
+```
+
 ## Commands
 
 ### choirVariations

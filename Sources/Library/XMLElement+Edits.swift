@@ -9,7 +9,24 @@
 import Foundation
 
 
-extension XMLElement {
+public extension XMLElement {
+	func getStringValue(child: String) -> String? {
+		return elements(forName: child).first?.stringValue?.trimmingCharacters(in: .whitespacesAndNewlines)
+	}
+	
+	func set(child: String, stringValue: String?) {
+		let existingElement = elements(forName: child).first
+		if let newValue = stringValue {
+			if let element = existingElement {
+				element.stringValue = newValue
+			} else {
+				addChild(XMLElement(name: child, stringValue: newValue))
+			}
+		} else if let element = existingElement {
+			removeChild(at: element.index)
+		}
+	}
+	
 	func append(_ suffix: String, toAttributeWithName name: String) {
 		attribute(forName: name)?.stringValue?.append(suffix)
 	}
@@ -39,7 +56,12 @@ extension XMLElement {
 		}
 	}
 	
-	func setAttribute(_ key: String, value: String) {
+	func setAttribute(_ key: String, value: String?) {
+		guard let value = value else {
+			removeAttribute(forName: key)
+			return
+		}
+		
 		if let attribute = attribute(forName: key) {
 			attribute.stringValue = value
 		} else {
@@ -47,6 +69,10 @@ extension XMLElement {
 			attribute.stringValue = value
 			addAttribute(attribute)
 		}
+	}
+	
+	func getAttribute(_ key: String) -> String? {
+		return attribute(forName: key)?.stringValue
 	}
 	
 	func duplicate() -> XMLElement? {
@@ -60,7 +86,7 @@ extension XMLElement {
 	}
 	
 	func children(name: String) -> [XMLElement] {
-		let results: [XMLElement]? = children?.flatMap {
+		let results: [XMLElement]? = children?.compactMap {
 			guard let childElement = $0 as? XMLElement, childElement.name == name else {
 				return nil
 			}
@@ -74,6 +100,14 @@ extension XMLElement {
 		return children(name: name).first
 	}
 	
+	func insert(_ node: XMLNode, after: XMLNode?) {
+		if let after = after, after.parent == self {
+			insertChild(node, at: after.index + 1)
+		} else {
+			addChild(node)
+		}
+	}
+	
 	func overrideChildren(withThoseOf other: XMLElement) {
 		other.children?.forEach { (otherChild) in
 			guard let otherChildElement = otherChild as? XMLElement, let otherChildName = otherChildElement.name else {
@@ -83,6 +117,23 @@ extension XMLElement {
 			if let existingChild = firstChild(name: otherChildName), let otherChildCopy = otherChildElement.copy() as? XMLElement {
 				replaceChild(at: existingChild.index, with: otherChildCopy)
 			}
+		}
+	}
+	
+	func replaceChildren(name: String, with other: [XMLElement]) {
+		var lastIndex: Int?
+		
+		while let lastChild = children(name: name).last {
+			let index = lastChild.index
+			removeChild(at: index)
+			lastIndex = index
+		}
+		
+		var insertAtIndex = lastIndex ?? children?.count ?? 0
+		
+		for element in other {
+			insertChild(element, at: insertAtIndex)
+			insertAtIndex += 1
 		}
 	}
 }

@@ -8,15 +8,15 @@
 
 import Foundation
 
-class PartListElement {
-	var identifier: String {
+public class PartListElement {
+	public var identifier: String {
 		didSet {
 			element.setAttribute("id", value: identifier)
 			element.replace(oldValue, with: identifier, inDescendentsAttributesWithName: "id")
 		}
 	}
 	
-	var name: String {
+	public var name: String {
 		didSet {
 			if let existing = element.elements(forName: "part-name").first {
 				existing.stringValue = name
@@ -39,15 +39,15 @@ class PartListElement {
 		}
 	}
 	
-	var volume: String? {
+	public var volume: String? {
 		didSet {
 			element.elements(forName: "midi-instrument").first?.elements(forName: "volume").first?.stringValue = volume
 		}
 	}
 	
-	let element: XMLElement
+	public let element: XMLElement
 	
-	init?(element originalElement: XMLElement) {
+	public init?(element originalElement: XMLElement) {
 		guard originalElement.name == "score-part", let element = originalElement.copy() as? XMLElement else {
 			return nil
 		}
@@ -67,14 +67,14 @@ class PartListElement {
 	}
 }
 
-enum PartListItem {
+public enum PartListItem {
 	case part(Part)
 	case other(XMLElement)
 }
 
 
 
-extension PartListItem {
+public extension PartListItem {
 	init?(element: XMLElement, measures: [String: [Measure]]) {
 		if element.name == "score-part" {
 			guard let metadata = PartListElement(element: element) else {
@@ -114,12 +114,12 @@ extension PartListItem {
 }
 
 
-class Score {
-	let originalDocument: XMLDocument
-	let headerElements: [XMLElement]
-	var partList: [PartListItem]
+public class Score {
+	public let originalDocument: XMLDocument
+	public let headerElements: [XMLElement]
+	public var partList: [PartListItem]
 	
-	init?(document originalDocument: XMLDocument) {
+	public init?(document originalDocument: XMLDocument) {
 		guard let rootElement = originalDocument.rootElement(), rootElement.name == "score-partwise" else {
 			return nil
 		}
@@ -131,14 +131,14 @@ class Score {
 			guard let partID = partElement.attribute(forName: "id")?.stringValue else {
 				return
 			}
-			partMeasures[partID] = partElement.elements(forName: "measure").flatMap { Measure(element: $0) }
+			partMeasures[partID] = partElement.elements(forName: "measure").compactMap { Measure(element: $0) }
 		}
 		
 		guard let partListElement = rootElement.elements(forName: "part-list").first?.copy() as? XMLElement else {
 			return nil
 		}
 		
-		self.partList = partListElement.children?.flatMap { (node) in
+		self.partList = partListElement.children?.compactMap { (node) in
 			guard let element = node as? XMLElement else {
 				return nil
 			}
@@ -147,7 +147,7 @@ class Score {
 		
 		
 		self.originalDocument = originalDocument
-		self.headerElements = rootElement.children?.flatMap { (node) in
+		self.headerElements = rootElement.children?.compactMap { (node) in
 			guard let element = node as? XMLElement else {
 				return nil
 			}
@@ -161,7 +161,7 @@ class Score {
 	}
 	
 	func partIndex(identifier: String) -> Int? {
-		return partList.index { (item) in
+		return partList.firstIndex { (item) in
 			if case .part(let part) = item, part.metadata.identifier == identifier {
 				return true
 			}
@@ -192,7 +192,7 @@ class Score {
 		return result
 	}
 	
-	var resultDocument: XMLDocument? {
+	public var resultDocument: XMLDocument? {
 		guard let result = originalDocument.copy() as? XMLDocument else {
 			return nil
 		}
@@ -200,9 +200,9 @@ class Score {
 		var resultElements = [XMLElement]()
 		resultElements.append(contentsOf: headerElements)
 		resultElements.append(partListElement)
-		resultElements.append(contentsOf: partList.flatMap { $0.resultElement })
+		resultElements.append(contentsOf: partList.compactMap { $0.resultElement })
 		
-		result.rootElement()?.setChildren(resultElements.flatMap { $0.copy() as? XMLElement })
+		result.rootElement()?.setChildren(resultElements.compactMap { $0.copy() as? XMLElement })
 		
 		return result
 	}
