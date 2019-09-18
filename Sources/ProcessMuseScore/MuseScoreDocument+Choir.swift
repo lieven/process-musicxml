@@ -81,6 +81,20 @@ public extension MuseScorePart {
 }
 
 public extension MuseScoreDocument {
+	func extractChoirVariations() {
+		if let soprano = choirPart(.soprano), let alto = choirPart(.alto) {
+			extractMezzos(soprano: soprano, alto: alto)
+		} else if let women = choirPart(.women) {
+			splitWomen(part: women)
+		}
+		
+		if let tenor = choirPart(.tenor), let bass = choirPart(.bass) {
+			extractBaritones(tenor: tenor, bass: bass)
+		} else if let men = choirPart(.men) {
+			splitMen(part: men)
+		}
+	}
+
 	func choirPart(_ voice: ChoirVoice) -> MuseScorePart? {
 		return partWithName(in: voice.names)
 	}
