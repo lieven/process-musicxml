@@ -46,16 +46,19 @@ public class MuseScorePart: ManagedXMLElement {
 		}
 	}
 	
-	fileprivate var staffElement: XMLElement? {
-		return element.elements(forName: "Staff").first
+	fileprivate var staffElements: [XMLElement] {
+		return element.elements(forName: "Staff")
 	}
 	
-	var staffID: String? {
+	var staffIDs: [String] {
 		get {
-			return staffElement?.getAttribute("id")
+			return staffElements.compactMap { $0.getAttribute("id") }
 		}
 		set {
-			staffElement?.setAttribute("id", value: newValue)
+			let elements = staffElements
+			for (element, staffID) in zip(elements, newValue) {
+				element.setAttribute("id", value: staffID)
+			}
 		}
 	}
 	

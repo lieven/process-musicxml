@@ -9,15 +9,17 @@ import Foundation
 
 public enum ChoirVoice: CaseIterable {
 	case soprano
+	case mezzoSoprano
+	case mezzoAlto
 	case alto
 	case women
 	case tenor
+	case bariTenor
+	case bariBass
 	case bass
 	case men
 	case highVoices
 	case lowVoices
-	case mezzoSoprano
-	case mezzoAlto
 }
 
 extension ChoirVoice {
@@ -25,12 +27,20 @@ extension ChoirVoice {
 		switch self {
 		case .soprano:
 			return ["sopraan", "soprano"]
+		case .mezzoSoprano:
+			return ["mezzo-sopraan", "mezzo-soprano"]
+		case .mezzoAlto:
+			return ["mezzo-alt", "mezzo-alto"]
 		case .alto:
 			return ["alt", "alto"]
 		case .women:
 			return ["women", "vrouwen", "sopraan/alt", "sopraan\nalt", "soprano/alto", "soprano\nalto"]
 		case .tenor:
 			return ["tenor"]
+		case .bariTenor:
+			return ["bari-tenor"]
+		case .bariBass:
+			return ["bari-bass", "bari-bas"]
 		case .bass:
 			return ["bass", "bas"]
 		case .men:
@@ -39,10 +49,6 @@ extension ChoirVoice {
 			return ["sopraan/tenor", "sopraan\ntenor"]
 		case .lowVoices:
 			return ["alt/bas", "alt\nbas"]
-		case .mezzoSoprano:
-			return ["mezzo-sopraan", "mezzo-soprano"]
-		case .mezzoAlto:
-			return ["mezzo-alt", "mezzo-alto"]
 		}
 	}
 }
@@ -100,7 +106,7 @@ public extension MuseScoreDocument {
 	}
 	
 	func choirStaff(_ voice: ChoirVoice) -> MuseScoreStaff? {
-		guard let staffID = choirPart(voice)?.staffID else {
+		guard let staffID = choirPart(voice)?.staffIDs.first else {
 			return nil
 		}
 		return staff(identifier: staffID)
@@ -192,7 +198,7 @@ public extension MuseScoreDocument {
 			exit(1)
 		}
 		
-		destinationPart.staffID = destinationStaffID
+		destinationPart.staffIDs = [destinationStaffID]
 		destinationPart.partName = destinationPartName
 		
 		addPart(destinationPart, staff: destinationStaff, after: basePart)
