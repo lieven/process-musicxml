@@ -20,6 +20,7 @@ public enum ChoirVoice: CaseIterable {
 	case men
 	case highVoices
 	case lowVoices
+	case solo
 }
 
 extension ChoirVoice {
@@ -49,6 +50,8 @@ extension ChoirVoice {
 			return ["sopraan/tenor", "sopraan\ntenor"]
 		case .lowVoices:
 			return ["alt/bas", "alt\nbas"]
+		case .solo:
+			return ["solo"]
 		}
 	}
 }
