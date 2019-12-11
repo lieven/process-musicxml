@@ -18,37 +18,48 @@ extension Array {
 
 enum MuseScoreDurationType: String {
 	case measure
+	case whole
 	case half
+	case quarter
+	case eighth
+	case sixteenth = "16th"
 	
-	var duration: (Int, Int)? {
+	var fraction: Fractional {
 		switch self {
 		case .measure:
-			return (1, 1)
+			return 1/1 // TODO: check this
+		case .whole:
+			return 1/1
 		case .half:
-			return (1, 2)
+			return 1/2
+		case .quarter:
+			return 1/4
+		case .eighth:
+			return 1/8
+		case .sixteenth:
+			return 1/16
 		}
 	}
 }
 
-public class MuseScoreVoiceElement: ManagedXMLElement {
-	public enum ElementType: String {
-		case chord = "Chord"
-		case rest = "Rest"
-	}
-
-	public let element: XMLElement
-	public let type: ElementType
-	
-	required public init?(element: XMLElement) {
-		guard let name = element.name, let type = ElementType(rawValue: name) else {
+extension String {
+	var fraction: Fractional? {
+		let durationComponents = self.components(separatedBy: "/")
+		guard durationComponents.count == 2 else {
 			return nil
 		}
-		self.element = element
-		self.type = type
+		
+		guard let numerator = Int(durationComponents[0]), let denominator = Int(durationComponents[1]) else {
+			return nil
+		}
+		
+		return Fractional(numerator: numerator, denominator: denominator)
 	}
-	
+}
+
+extension XMLElement {
 	var durationTypeString: String? {
-		return element.getStringValue(child: "durationType")
+		return getStringValue(child: "durationType")
 	}
 	
 	var durationType: MuseScoreDurationType? {
@@ -60,24 +71,88 @@ public class MuseScoreVoiceElement: ManagedXMLElement {
 	}
 	
 	var durationString: String? {
-		return element.getStringValue(child: "duration")
+		return getStringValue(child: "duration") 
 	}
 	
-	public var duration: (Int, Int)? {
+	public var durationFraction: Fractional? {
 		guard let durationString = durationString else {
-			return durationType?.duration
+			return durationType?.fraction
 		}
-		
-		let durationComponents = durationString.components(separatedBy: "/")
-		guard durationComponents.count == 2 else {
+		return durationString.fraction
+	}
+	
+	var locationDuration: Fractional? {
+		guard name == "location" else {
 			return nil
 		}
+	
+		return elements(forName: "fractions").first?.stringValue?.fraction
+	}
+}
+
+public class MuseScoreVoiceElement {
+	public let element: XMLElement
+	public let position: Fractional
+	public let duration: Fractional?
+	
+	required public init(element: XMLElement, position: Fractional) {
+		self.element = element
+		self.position = position
+		self.duration = element.durationFraction
+	}
+	
+	private var positionEnd: Fractional {
+		if let duration = duration {
+			return position + duration
+		} else {
+			return position
+		}
+	}
+	
+	func overlaps(with otherElement: MuseScoreVoiceElement) -> Bool {
+		return position < otherElement.positionEnd
+			&& otherElement.position < positionEnd
+	}
+	
+	func overlaps(with elements: [MuseScoreVoiceElement]) -> Bool {
+		for otherElement in elements {
+			if overlaps(with: otherElement) {
+				return true
+			}
+		}
+		return false
+	}
+}
+
+extension Array where Element == MuseScoreVoiceElement {
+	var voiceElement: XMLElement {
+		let result = XMLElement(name: "voice")
 		
-		guard let denominator = Int(durationComponents[0]), let numerator = Int(durationComponents[1]) else {
-			return nil
+		let sortedElements = self.sorted { (lhs, rhs) -> Bool in
+			return lhs.position < rhs.position
 		}
 		
-		return (denominator, numerator)
+		var position = Fractional(0)
+		for element in sortedElements {
+			let diff = element.position - position
+			if diff.magnitude > 0 {
+				let locationElement = XMLElement(name: "location")
+				let fractionsElement = XMLElement(name: "fractions")
+				fractionsElement.stringValue = "\(diff.numerator)/\(diff.denominator)"
+				locationElement.addChild(fractionsElement)
+				result.addChild(locationElement)
+				position += diff
+			}
+			
+			if let elementCopy = element.element.copy() as? XMLElement {
+				result.addChild(elementCopy)
+			}
+			if let duration = element.duration {
+				position += duration
+			}
+		}
+		
+		return result
 	}
 }
 
@@ -116,13 +191,58 @@ extension MuseScoreMeasure {
 		}
 	}
 	
-	func overwriteNotesWithThoseFrom(variation: MuseScoreMeasure, voice: Int) {
+	func overwriteNotesWithThoseFromOld(variation: MuseScoreMeasure, voice: Int) {
 		guard let variationVoiceCopy = variation.voices[safe: voice]?.copy() as? XMLElement, let destinationVoiceElement = voices.first else {
 			return
 		}
 		
 		element.replaceChild(at: destinationVoiceElement.index, with: variationVoiceCopy)
+	}
+	
+	func voiceElements(voice: Int) -> [MuseScoreVoiceElement]? {
+		guard let voiceElement = voices[safe: voice] else {
+			return nil
+		}
 		
+		let childNodes = voiceElement.children ?? []
+		
+		var position = Fractional(0)
+		
+		let voiceElements: [MuseScoreVoiceElement] = childNodes.compactMap { node in
+			guard let element = node as? XMLElement else {
+				return nil
+			}
+			
+			if let locationDuration = element.locationDuration {
+				position += locationDuration
+				return nil
+			}
+			
+			let result = MuseScoreVoiceElement(element: element, position: position)
+			if let duration = result.duration {
+				position += duration
+			}
+			
+			return result
+		}
+		
+		return voiceElements
+	}
+	
+	func overwriteNotesWithThoseFrom(variation: MuseScoreMeasure, voice: Int) {
+		guard
+			let destinationVoiceElement = voices.first,
+			let ownVoiceElements = voiceElements(voice: 0),
+			let variationVoiceElements = variation.voiceElements(voice: voice)
+		else {
+			return
+		}
+			
+		
+		var remainingElements = ownVoiceElements.filter { !$0.overlaps(with: variationVoiceElements) }
+		remainingElements.append(contentsOf: variationVoiceElements)
+		
+		element.replaceChild(at: destinationVoiceElement.index, with: remainingElements.voiceElement)
 		
 		/* TODO: take <location> elements into account by measuring the position and duration of child elements
 		let variationChildNodes = variationVoiceElement.children ?? [] 
