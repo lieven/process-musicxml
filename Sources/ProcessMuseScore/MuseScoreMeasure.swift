@@ -70,13 +70,49 @@ extension XMLElement {
 		return MuseScoreDurationType(rawValue: durationTypeString)
 	}
 	
+	var dotsString: String? {
+		return getStringValue(child: "dots")
+	}
+	
+	var dots: Int? {
+		guard let dotsString = dotsString else {
+			return nil
+		}
+		return Int(dotsString)
+	}
+	
+	var dotsFactor: Fractional? {
+		guard let dots = dots else {
+			return nil
+		}
+		
+		var factor: Fractional = 1 / 2
+		
+		var result: Fractional = 1
+		for _ in [0..<dots] {
+			result += factor
+			
+			factor /= 2
+		}
+		return result
+		
+	}
+	
 	var durationString: String? {
 		return getStringValue(child: "duration") 
 	}
 	
 	public var durationFraction: Fractional? {
 		guard let durationString = durationString else {
-			return durationType?.fraction
+			guard let durationTypeFraction = durationType?.fraction else {
+				return nil
+			}
+			
+			if let dotsFactor = dotsFactor {
+				return durationTypeFraction * dotsFactor
+			} else {
+				return durationTypeFraction
+			}
 		}
 		return durationString.fraction
 	}
