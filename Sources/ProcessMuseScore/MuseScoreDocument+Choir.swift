@@ -86,7 +86,7 @@ public extension MuseScoreDocument {
 	}
 	
 	func choirStaff(_ voice: ChoirVoice) -> MuseScoreStaff? {
-		guard let staffID = choirPart(voice)?.staffID else {
+		guard let staffIDs = choirPart(voice)?.staffIDs, staffIDs.count == 1, let staffID = staffIDs.first else {
 			return nil
 		}
 		return staff(identifier: staffID)
@@ -102,10 +102,13 @@ public extension MuseScoreDocument {
 	}
 	
 	func extractMezzos(soprano: MuseScorePart, alto: MuseScorePart) {
-		guard let sopranoStaff = staff(part: soprano), let altoStaff = staff(part: alto) else {
+		let sopranoStaffs = staffs(part: soprano)
+		let altoStaffs = staffs(part: alto)
+		
+		guard sopranoStaffs.count == 1, altoStaffs.count == 1, let sopranoStaff = sopranoStaffs.first, let altoStaff = altoStaffs.first else {
 			return
 		}
-	
+		
 		if sopranoStaff.voiceCount >= 2 {
 			if altoStaff.voiceCount >= 2 {
 				extractVariation(basePart: soprano, baseVoice: 0, variationPart: soprano, variationVoice: 1, cut: true, destinationPartName: .mezzoSoprano)
@@ -121,7 +124,10 @@ public extension MuseScoreDocument {
 	}
 	
 	func extractBaritones(tenor: MuseScorePart, bass: MuseScorePart) {
-		guard let tenorStaff = staff(part: tenor), let bassStaff = staff(part: bass) else {
+		let tenorStaffs = staffs(part: tenor)
+		let bassStaffs = staffs(part: bass)
+		
+		guard tenorStaffs.count == 1, bassStaffs.count == 1, let tenorStaff = tenorStaffs.first, let bassStaff = bassStaffs.first else {
 			return
 		}
 	
@@ -149,7 +155,9 @@ public extension MuseScoreDocument {
 	}
 	
 	func split(part: MuseScorePart, firstPartName: PartName, secondPartName: PartName) {
-		guard let staff = staff(part: part), staff.voiceCount >= 2 else {
+		let staffs = staffs(part: part)
+		
+		guard staffs.count == 1, let staff = staffs.first, staff.voiceCount >= 2 else {
 			return
 		}
 		extractVariation(basePart: part, baseVoice: 0, variationPart: part, variationVoice: 1, cut: true, destinationPartName: secondPartName)
@@ -158,9 +166,11 @@ public extension MuseScoreDocument {
 	
 	
 	func extractVariation(basePart: MuseScorePart, baseVoice: Int, variationPart: MuseScorePart, variationVoice: Int, cut: Bool, destinationPartName: PartName) {
+		let baseStaffs = staffs(part: basePart)
+		let variationStaffs = staffs(part: variationPart)
 		
 		// MARK: - Duplicate base part and create new staff
-		guard let baseStaff = staff(part: basePart), let variationStaff = staff(part: variationPart) else {
+		guard baseStaffs.count == 1, variationStaffs.count == 1, let baseStaff = baseStaffs.first, let variationStaff = variationStaffs.first else {
 			fputs("Could not find base staff\n", stderr)
 			exit(1)
 		}
@@ -178,7 +188,7 @@ public extension MuseScoreDocument {
 			exit(1)
 		}
 		
-		destinationPart.staffID = destinationStaffID
+		destinationPart.staffIDs = [destinationStaffID]
 		destinationPart.partName = destinationPartName
 		
 		addPart(destinationPart, staff: destinationStaff, after: basePart)

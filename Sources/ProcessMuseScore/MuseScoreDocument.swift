@@ -38,11 +38,8 @@ public class MuseScoreDocument {
 		return staffs.first { $0.identifier == identifier }
 	}
 	
-	func staff(part: MuseScorePart) -> MuseScoreStaff? {
-		guard let staffID = part.staffID else {
-			return nil
-		}
-		return staff(identifier: staffID)
+	func staffs(part: MuseScorePart) -> [MuseScoreStaff] {
+		return part.staffIDs.compactMap { staff(identifier: $0) }
 	}
 	
 	func addPart(_ newPart: MuseScorePart, staff newStaff: MuseScoreStaff, after: MuseScorePart? = nil) {
@@ -50,7 +47,7 @@ public class MuseScoreDocument {
 		
 		let afterStaff: MuseScoreStaff?
 		if let afterPart = after {
-			afterStaff = self.staff(part: afterPart)
+			afterStaff = self.staffs(part: afterPart).last
 		} else {
 			afterStaff = nil
 		}
@@ -60,14 +57,18 @@ public class MuseScoreDocument {
 		
 		// Rewrite identifiers, since order matters
 		var identifier = 1
-		let partsAndStaffs = parts.map { ($0, staff(part: $0)) }
-		for (part, staff) in partsAndStaffs {
-			let newID = "\(identifier)"
-			
-			staff?.identifier = newID
-			part.staffID = newID
-			
-			identifier += 1
+		
+		let partsAndStaffs = parts.map { ($0, staffs(part: $0)) }
+		
+		for (part, partStaffs) in partsAndStaffs {
+			var staffIDs: [String] = []
+			for staff in partStaffs {
+				let newID = "\(identifier)"
+				staff.identifier = newID
+				staffIDs.append(newID)
+				identifier += 1
+			}
+			part.staffIDs = staffIDs
 		}
 	}
 }

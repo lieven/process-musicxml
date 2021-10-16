@@ -9,9 +9,9 @@ let package = Package(
     	.macOS(.v10_12)
     ],
     products: [
+		.executable(name: "process_musicxml", targets: ["process_musicxml"]),
     	.library(name: "ProcessMusicXML", type: .static, targets: ["ProcessMusicXML"]),
-    	.library(name: "ProcessMuseScore", type: .static, targets: ["ProcessMuseScore"]),
-    	.executable(name: "process_musicxml", targets: ["process_musicxml"])
+    	.library(name: "ProcessMuseScore", type: .static, targets: ["ProcessMuseScore"])
     ],
     dependencies: [
         .package(url: "https://github.com/weichsel/ZIPFoundation/", .upToNextMajor(from: "0.9.9"))
