@@ -9,15 +9,18 @@ import Foundation
 
 public enum ChoirVoice: CaseIterable {
 	case soprano
+	case mezzoSoprano
+	case mezzoAlto
 	case alto
 	case women
 	case tenor
+	case bariTenor
+	case bariBass
 	case bass
 	case men
 	case highVoices
 	case lowVoices
-	case mezzoSoprano
-	case mezzoAlto
+	case solo
 }
 
 extension ChoirVoice {
@@ -25,12 +28,20 @@ extension ChoirVoice {
 		switch self {
 		case .soprano:
 			return ["sopraan", "soprano"]
+		case .mezzoSoprano:
+			return ["mezzo-sopraan", "mezzo-soprano"]
+		case .mezzoAlto:
+			return ["mezzo-alt", "mezzo-alto"]
 		case .alto:
 			return ["alt", "alto"]
 		case .women:
 			return ["women", "vrouwen", "sopraan/alt", "sopraan\nalt", "soprano/alto", "soprano\nalto"]
 		case .tenor:
 			return ["tenor"]
+		case .bariTenor:
+			return ["bari-tenor"]
+		case .bariBass:
+			return ["bari-bass", "bari-bas"]
 		case .bass:
 			return ["bass", "bas"]
 		case .men:
@@ -39,10 +50,8 @@ extension ChoirVoice {
 			return ["sopraan/tenor", "sopraan\ntenor"]
 		case .lowVoices:
 			return ["alt/bas", "alt\nbas"]
-		case .mezzoSoprano:
-			return ["mezzo-sopraan", "mezzo-soprano"]
-		case .mezzoAlto:
-			return ["mezzo-alt", "mezzo-alto"]
+		case .solo:
+			return ["solo"]
 		}
 	}
 }
@@ -81,6 +90,20 @@ public extension MuseScorePart {
 }
 
 public extension MuseScoreDocument {
+	func extractChoirVariations() {
+		if let soprano = choirPart(.soprano), let alto = choirPart(.alto) {
+			extractMezzos(soprano: soprano, alto: alto)
+		} else if let women = choirPart(.women) {
+			splitWomen(part: women)
+		}
+		
+		if let tenor = choirPart(.tenor), let bass = choirPart(.bass) {
+			extractBaritones(tenor: tenor, bass: bass)
+		} else if let men = choirPart(.men) {
+			splitMen(part: men)
+		}
+	}
+
 	func choirPart(_ voice: ChoirVoice) -> MuseScorePart? {
 		return partWithName(in: voice.names)
 	}

@@ -26,8 +26,10 @@ extension MuseScoreStaff {
 
 extension MuseScoreMeasure {
 	func reduceDynamics(defaultVelocity: Int = 80) {
-		element.children(name: "Dynamic").forEach { (dynamicElement) in
-			dynamicElement.set(child: "velocity", stringValue: "\(defaultVelocity)")
+		voices.forEach { voice in
+			voice.children(name: "Dynamic").forEach { (dynamicElement) in
+				dynamicElement.set(child: "velocity", stringValue: "\(defaultVelocity)")
+			}
 		}
 	}
 }

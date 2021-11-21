@@ -115,6 +115,10 @@ public class MuseScoreFile {
 			case .mscz:
 				// copy existing archive and replace entry
 				let fm = FileManager.default
+				if fm.fileExists(atPath: destinationURL.path) {
+					try fm.removeItem(at: destinationURL)
+				}
+				
 				try fm.copyItem(at: self.url, to: destinationURL)
 				
 				guard let (_, archive, entry) = try destinationType.loadXMLDocument(from: destinationURL), let destinationArchive = archive, let destinationEntry = entry else {

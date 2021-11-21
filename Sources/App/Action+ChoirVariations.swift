@@ -39,19 +39,7 @@ extension Action {
 	}
 	
 	private func performChoirVariationsAction(museScore: MuseScoreFile, outputURL: URL) {
-		let document = museScore.document
-		
-		if let soprano = document.choirPart(.soprano), let alto = document.choirPart(.alto) {
-			document.extractMezzos(soprano: soprano, alto: alto)
-		} else if let women = document.choirPart(.women) {
-			document.splitWomen(part: women)
-		}
-		
-		if let tenor = document.choirPart(.tenor), let bass = document.choirPart(.bass) {
-			document.extractBaritones(tenor: tenor, bass: bass)
-		} else if let men = document.choirPart(.men) {
-			document.splitMen(part: men)
-		}
+		museScore.document.extractChoirVariations()
 		
 		do {
 			try museScore.export(to: outputURL)
