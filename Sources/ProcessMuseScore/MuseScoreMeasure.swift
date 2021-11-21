@@ -227,14 +227,6 @@ extension MuseScoreMeasure {
 		}
 	}
 	
-	func overwriteNotesWithThoseFromOld(variation: MuseScoreMeasure, voice: Int) {
-		guard let variationVoiceCopy = variation.voices[safe: voice]?.copy() as? XMLElement, let destinationVoiceElement = voices.first else {
-			return
-		}
-		
-		element.replaceChild(at: destinationVoiceElement.index, with: variationVoiceCopy)
-	}
-	
 	func voiceElements(voice: Int) -> [MuseScoreVoiceElement]? {
 		guard let voiceElement = voices[safe: voice] else {
 			return nil
@@ -279,26 +271,5 @@ extension MuseScoreMeasure {
 		remainingElements.append(contentsOf: variationVoiceElements)
 		
 		element.replaceChild(at: destinationVoiceElement.index, with: remainingElements.voiceElement)
-		
-		/* TODO: take <location> elements into account by measuring the position and duration of child elements
-		let variationChildNodes = variationVoiceElement.children ?? [] 
-		
-		let variationElements: [MuseScoreVoiceElement] = variationChildNodes.compactMap { node in
-			guard let element = node as? XMLElement else {
-				return nil
-			}
-			
-			return MuseScoreVoiceElement(element: element)
-		}
-		*/
-	
-		/* TODO
-		let variationElements = variation.childElements.filter { $0.voice == voice }
-		childElements = childElements.filter { !$0.overlaps(with: variationElements) }
-		childElements.append(contentsOf: variationElements.compactMap {
-			let result = $0.copy()
-			result?.element.changeVoice(to: "1")
-			return result
-		})*/
 	}
 }
