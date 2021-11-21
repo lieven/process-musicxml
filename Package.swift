@@ -1,4 +1,4 @@
-// swift-tools-version:5.0
+// swift-tools-version:5.5
 // The swift-tools-version declares the minimum version of Swift required to build this package.
 
 import PackageDescription
@@ -14,7 +14,7 @@ let package = Package(
     	.library(name: "ProcessMuseScore", type: .static, targets: ["ProcessMuseScore"])
     ],
     dependencies: [
-        .package(url: "https://github.com/weichsel/ZIPFoundation/", .upToNextMajor(from: "0.9.9"))
+        .package(url: "https://github.com/weichsel/ZIPFoundation/", .upToNextMajor(from: "0.9.9")),
     ],
     targets: [
         .target(
@@ -25,11 +25,11 @@ let package = Package(
         	name: "ProcessMuseScore",
             dependencies: [
             	.target(name: "ProcessMusicXML"),
-            	"ZIPFoundation"
+            	"ZIPFoundation",
 			],
             path: "Sources/ProcessMuseScore"
         ),
-        .target(
+        .executableTarget(
             name: "process_musicxml",
             dependencies: [
             	.target(name: "ProcessMusicXML"),
@@ -37,5 +37,14 @@ let package = Package(
 			],
             path: "Sources/App"
 		),
+		.testTarget(name: "ProcessMuseScoreTests",
+			dependencies: [
+				.target(name: "process_musicxml")
+			],
+			path: "Tests/ProcessMuseScore",
+			resources: [
+				.copy("MeasureWithPartialVoice.mscx"),
+			]
+		)
     ]
 )
