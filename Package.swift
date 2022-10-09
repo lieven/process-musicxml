@@ -44,6 +44,7 @@ let package = Package(
 			path: "Tests/ProcessMuseScore",
 			resources: [
 				.copy("MeasureWithPartialVoice.mscx"),
+				.copy("Triplet_Test.mscx"),
 			]
 		)
     ]
