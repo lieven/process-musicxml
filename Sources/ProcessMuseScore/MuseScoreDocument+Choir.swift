@@ -137,7 +137,7 @@ public extension MuseScoreDocument {
 				extractVariation(basePart: soprano, baseVoice: 0, variationPart: soprano, variationVoice: 1, cut: true, destinationPartName: .mezzoSoprano)
 				extractVariation(basePart: alto, baseVoice: 0, variationPart: alto, variationVoice: 1, cut: true, destinationPartName: .mezzoAlto)
 			} else {
-				extractVariation(basePart: soprano, baseVoice: 0, variationPart: soprano, variationVoice: 1, cut: false, destinationPartName: .mezzoSoprano)
+				extractVariation(basePart: soprano, baseVoice: 0, variationPart: soprano, variationVoice: 1, cut: true, destinationPartName: .mezzoSoprano)
 			}
 		} else if altoStaff.voiceCount >= 2 {
 			extractVariation(basePart: alto, baseVoice: 0, variationPart: alto, variationVoice: 1, cut: false, destinationPartName: .mezzoAlto)
@@ -158,7 +158,7 @@ public extension MuseScoreDocument {
 				extractVariation(basePart: tenor, baseVoice: 0, variationPart: tenor, variationVoice: 1, cut: true, destinationPartName: .bariTenor)
 				extractVariation(basePart: bass, baseVoice: 0, variationPart: bass, variationVoice: 1, cut: true, destinationPartName: .bariBass)
 			} else {
-				extractVariation(basePart: tenor, baseVoice: 0, variationPart: tenor, variationVoice: 1, cut: false, destinationPartName: .bariTenor)
+				extractVariation(basePart: tenor, baseVoice: 0, variationPart: tenor, variationVoice: 1, cut: true, destinationPartName: .bariTenor)
 			}
 		} else if bassStaff.voiceCount >= 2 {
 			extractVariation(basePart: bass, baseVoice: 0, variationPart: bass, variationVoice: 1, cut: false, destinationPartName: .bariBass)
