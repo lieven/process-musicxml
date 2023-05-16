@@ -1,3 +1,5 @@
 .build
 Package.resolved
 .DS_Store
+.swiftpm
+**/.mscbackup

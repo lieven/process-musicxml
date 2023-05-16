@@ -124,28 +124,48 @@ extension XMLElement {
 	
 		return elements(forName: "fractions").first?.stringValue?.fraction
 	}
+	
+	var tupletFactor: Fractional? {
+		guard
+			let name = self.name, name == "Tuplet",
+			let normalNotesString = self.firstChild(name: "normalNotes")?.stringValue,
+			let normalNotes = Int(normalNotesString),
+			normalNotes > 0,
+			let actualNotesString = self.firstChild(name: "actualNotes")?.stringValue,
+			let actualNotes = Int(actualNotesString),
+			actualNotes > 0
+		else {
+			return nil
+		}
+		return Fractional(numerator: normalNotes, denominator: actualNotes)
+	}
 }
+
+
 
 public class MuseScoreVoiceElement {
 	public let element: XMLElement
 	public let position: Fractional
 	public let duration: Fractional?
+	public let positionEnd: Fractional
 	
-	required public init(element: XMLElement, position: Fractional) {
+	required public init(element: XMLElement, position: Fractional, tupletFactor: Fractional) {
 		self.element = element
 		self.position = position
-		self.duration = element.durationFraction
-	}
-	
-	private var positionEnd: Fractional {
-		if let duration = duration {
-			return position + duration
+		if let duration = element.durationFraction {
+			self.duration = duration * tupletFactor
+			self.positionEnd = self.position + duration
 		} else {
-			return position
+			self.duration = nil
+			self.positionEnd = self.position
 		}
 	}
 	
 	func overlaps(with otherElement: MuseScoreVoiceElement) -> Bool {
+		if self.element.tupletFactor != nil, otherElement.element.tupletFactor != nil, self.position == otherElement.position {
+			return true
+		}
+		
 		return position < otherElement.positionEnd
 			&& otherElement.position < positionEnd
 	}
@@ -227,14 +247,6 @@ extension MuseScoreMeasure {
 		}
 	}
 	
-	func overwriteNotesWithThoseFromOld(variation: MuseScoreMeasure, voice: Int) {
-		guard let variationVoiceCopy = variation.voices[safe: voice]?.copy() as? XMLElement, let destinationVoiceElement = voices.first else {
-			return
-		}
-		
-		element.replaceChild(at: destinationVoiceElement.index, with: variationVoiceCopy)
-	}
-	
 	func voiceElements(voice: Int) -> [MuseScoreVoiceElement]? {
 		guard let voiceElement = voices[safe: voice] else {
 			return nil
@@ -243,18 +255,31 @@ extension MuseScoreMeasure {
 		let childNodes = voiceElement.children ?? []
 		
 		var position = Fractional(0)
-		
+		var tupletFactors = [Fractional(1)]
+
 		let voiceElements: [MuseScoreVoiceElement] = childNodes.compactMap { node in
 			guard let element = node as? XMLElement else {
 				return nil
 			}
 			
+			let currentTupletFactor = tupletFactors.last ?? Fractional(1)
+			
 			if let locationDuration = element.locationDuration {
-				position += locationDuration
+				position += currentTupletFactor * locationDuration
 				return nil
 			}
 			
-			let result = MuseScoreVoiceElement(element: element, position: position)
+			if let newTupletFactor = element.tupletFactor {
+				tupletFactors.append(newTupletFactor)
+			} else if element.name == "endTuplet" {
+				if tupletFactors.count > 1 {
+					tupletFactors.removeLast()
+				} else {
+					print("Warning: endTuplet without start")
+				}
+			}
+			
+			let result = MuseScoreVoiceElement(element: element, position: position, tupletFactor: currentTupletFactor)
 			if let duration = result.duration {
 				position += duration
 			}
@@ -279,26 +304,5 @@ extension MuseScoreMeasure {
 		remainingElements.append(contentsOf: variationVoiceElements)
 		
 		element.replaceChild(at: destinationVoiceElement.index, with: remainingElements.voiceElement)
-		
-		/* TODO: take <location> elements into account by measuring the position and duration of child elements
-		let variationChildNodes = variationVoiceElement.children ?? [] 
-		
-		let variationElements: [MuseScoreVoiceElement] = variationChildNodes.compactMap { node in
-			guard let element = node as? XMLElement else {
-				return nil
-			}
-			
-			return MuseScoreVoiceElement(element: element)
-		}
-		*/
-	
-		/* TODO
-		let variationElements = variation.childElements.filter { $0.voice == voice }
-		childElements = childElements.filter { !$0.overlaps(with: variationElements) }
-		childElements.append(contentsOf: variationElements.compactMap {
-			let result = $0.copy()
-			result?.element.changeVoice(to: "1")
-			return result
-		})*/
 	}
 }

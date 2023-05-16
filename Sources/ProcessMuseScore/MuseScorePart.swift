@@ -55,8 +55,7 @@ public class MuseScorePart: ManagedXMLElement {
 			return staffElements.compactMap { $0.getAttribute("id") }
 		}
 		set {
-			let elements = staffElements
-			for (element, staffID) in zip(elements, newValue) {
+			for (element, staffID) in zip(staffElements, newValue) {
 				element.setAttribute("id", value: staffID)
 			}
 		}
