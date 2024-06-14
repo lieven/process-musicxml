@@ -14,7 +14,7 @@ let package = Package(
     	.library(name: "ProcessMuseScore", type: .static, targets: ["ProcessMuseScore"])
     ],
     dependencies: [
-        .package(url: "https://github.com/weichsel/ZIPFoundation/", .upToNextMajor(from: "0.9.9")),
+        .package(url: "https://github.com/weichsel/ZIPFoundation/", .exact("0.9.9")),
     ],
     targets: [
         .target(
@@ -45,6 +45,7 @@ let package = Package(
 			resources: [
 				.copy("MeasureWithPartialVoice.mscx"),
 				.copy("Triplet_Test.mscx"),
+				.copy("ChapterMarkersTest-norepeats.mscx"),
 			]
 		)
     ]
