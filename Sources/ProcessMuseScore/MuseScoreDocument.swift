@@ -22,8 +22,7 @@ public class MuseScoreDocument {
 			return nil
 		}
 		
-		// TODO: version check: <museScore version="2.06">
-		
+		// TODO: version check: <museScore version="3.02">
 		guard let scoreElement = rootElement.elements(forName: "Score").first else {
 			return nil
 		}
@@ -32,6 +31,14 @@ public class MuseScoreDocument {
 		self.scoreElement = scoreElement
 		self.parts = scoreElement.elements(forName: "Part").compactMap { MuseScorePart(element: $0) }
 		self.staffs = scoreElement.elements(forName: "Staff").compactMap { MuseScoreStaff(element: $0) }
+	}
+	
+	public var firstStaff: MuseScoreStaff? {
+		if let staffID = parts.first?.staffIDs.first, let staff = staff(identifier: staffID) {
+			return staff
+		} else {
+			return staffs.first
+		}
 	}
 	
 	func staff(identifier: String) -> MuseScoreStaff? {

@@ -14,12 +14,14 @@ enum Action {
 	case choirVariations(inputPath: String?, outputPath: String?)
 	case choirMP3(inputPath: String?, outputPath: String?)
 	case extractRange(inputPath: String?, outputPath: String?, firstMeasure: Int, lastMeasure: Int)
+	case chapterMarkers(inputPath: String?, outputPath: String?)
 	
 	static let all: [Action] = [
 		.variation(args: nil),
 		.choirVariations(inputPath: nil, outputPath: nil),
 		.choirMP3(inputPath: nil, outputPath: nil),
-		.extractRange(inputPath: nil, outputPath: nil, firstMeasure: 1, lastMeasure: 1)
+		.extractRange(inputPath: nil, outputPath: nil, firstMeasure: 1, lastMeasure: 1),
+		.chapterMarkers(inputPath: nil, outputPath: nil)
 	]
 	
 	init?(args: [String]) {
@@ -43,6 +45,8 @@ enum Action {
 				return nil
 			}
 			self = .extractRange(inputPath: args[safe: 2], outputPath: args[safe: 3], firstMeasure: firstMeasure, lastMeasure: lastMeasure)
+		case "chapterMarkers":
+			self = .chapterMarkers(inputPath: args[safe: 2], outputPath: args[safe: 3])
 		default:
 			return nil
 		}
@@ -59,6 +63,8 @@ enum Action {
 			return "choirMP3"
 		case .extractRange:
 			return "extractRange"
+		case .chapterMarkers:
+			return "chapterMarkers"
 		}
 	}
 	
@@ -72,6 +78,8 @@ enum Action {
 			return "<inputPath> <outputPath>?"
 		case .extractRange:
 			return "<inputPath> <outputPath> <firstMeasure> <lastMeasure>"
+		case .chapterMarkers:
+			return "<inputPath> <outputPath>?"
 		}
 	}
 	
@@ -105,6 +113,13 @@ enum Action {
 			}
 			
 			performExtractRangeAction(inputPath: inputPath, outputPath: outputPath, firstMeasure: firstMeasure, lastMeasure: lastMeasure)
+		
+		case .chapterMarkers(let inputPath, let outputPath):
+			guard let inputPath = inputPath else {
+				printUsage()
+				return
+			}
+			performChapterMarkers(inputPath: inputPath, outputPath: outputPath)
 		}
 	}
 	

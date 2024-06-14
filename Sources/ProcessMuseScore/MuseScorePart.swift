@@ -50,7 +50,7 @@ public class MuseScorePart: ManagedXMLElement {
 		return element.elements(forName: "Staff")
 	}
 	
-	var staffIDs: [String] {
+	public var staffIDs: [String] {
 		get {
 			return staffElements.compactMap { $0.getAttribute("id") }
 		}
