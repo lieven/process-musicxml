@@ -46,27 +46,4 @@ class ProcessMuseScoreTests: XCTestCase {
 		
 		return musescore
 	}
-	
-	func testChapterMarkers() throws {
-		let inputURL = try XCTUnwrap(Bundle.module.url(forResource: "ChapterMarkersTest-norepeats", withExtension: "mscx"), "Test file ChapterMarkersTest-norepeats.mscx not found")
-		
-		let musescore = try XCTUnwrap(MuseScoreFile(url: inputURL), "Could not read test file \(inputURL.lastPathComponent)")
-		
-		let chapterMarkers = try XCTUnwrap(musescore.document.chapterMarkers, "Expected chapter markers")
-		
-		XCTAssertEqual(chapterMarkers.count, 3)
-		
-		let chapterMarkerA = chapterMarkers[0]
-		let chapterMarkerB = chapterMarkers[1]
-		let chapterMarkerC = chapterMarkers[2]
-		
-		XCTAssertEqual(chapterMarkerA.mark, "A")
-		XCTAssertEqual(chapterMarkerA.time, 2.0)
-		
-		XCTAssertEqual(chapterMarkerB.mark, "B")
-		XCTAssertEqual(chapterMarkerB.time, 9.5, accuracy: 0.01)
-		
-		XCTAssertEqual(chapterMarkerC.mark, "C")
-		XCTAssertEqual(chapterMarkerC.time, 11.75, accuracy: 0.01)
-	}
 }

@@ -46,6 +46,7 @@ let package = Package(
 				.copy("MeasureWithPartialVoice.mscx"),
 				.copy("Triplet_Test.mscx"),
 				.copy("ChapterMarkersTest-norepeats.mscx"),
+				.copy("ChapterMarkersTest-with-repeats.mscx"),
 			]
 		)
     ]

@@ -8,7 +8,7 @@
 import Foundation
 
 
-public struct ChapterMarker {
+public struct ChapterMarker: Equatable {
 	public let mark: String
 	public let time: Double
 }
@@ -28,7 +28,9 @@ extension MuseScoreDocument {
 		
 		var results: [ChapterMarker] = []
 		
-		for measure in firstStaff.measures {
+		let flattenedMeasures = firstStaff.measures.flattenRepeats()
+		
+		for measure in flattenedMeasures {
 			var breathsDuration: Double = 0.0
 			var fermataExtraDuration: Double = 0.0
 		
@@ -43,6 +45,9 @@ extension MuseScoreDocument {
 				
 				if let rehearsalMark = firstVoice.rehearsalMark {
 					results.append(ChapterMarker(mark: rehearsalMark, time: currentTime))
+					print("\(currentTime) - marker \(rehearsalMark)")
+				} else {
+					print("\(currentTime) - no marker")
 				}
 				
 				let breaths = firstVoice.children(name: "Breath")
@@ -132,5 +137,15 @@ extension XMLNode {
 			return nil
 		}
 		return doubleValue
+	}
+	
+	var intValue: Int? {
+		guard
+			let stringValue = self.stringValue?.trimmingCharacters(in: .whitespacesAndNewlines),
+			let intValue = Int(stringValue)
+		else {
+			return nil
+		}
+		return intValue
 	}
 }

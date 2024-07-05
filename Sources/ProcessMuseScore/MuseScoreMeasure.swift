@@ -306,3 +306,52 @@ extension MuseScoreMeasure {
 		element.replaceChild(at: destinationVoiceElement.index, with: remainingElements.voiceElement)
 	}
 }
+
+extension Array where Element == MuseScoreMeasure {
+	
+	func flattenRepeats() -> [MuseScoreMeasure] {
+		var results: [MuseScoreMeasure] = []
+		
+		var i = 0
+		let n = self.count
+		
+		var currentStartRepeat: Int? = nil
+		var currentIteration: Int = 0
+		var currentRepeatCount: Int? = nil
+		
+		while i < n {
+			let measure = self[i]
+			
+			if currentStartRepeat == nil, measure.element.firstChild(name: "startRepeat") != nil {
+				currentStartRepeat = i
+				currentIteration = 0
+			}
+			
+			results.append(measure)
+			
+			if let startRepeat = currentStartRepeat {
+				if let endRepeatElement = measure.element.firstChild(name: "endRepeat") {
+					if currentRepeatCount == nil {
+						let repeatCount = endRepeatElement.intValue ?? 2
+						currentRepeatCount = repeatCount
+						currentIteration = 1
+					}
+					
+					if let repeatCount = currentRepeatCount, currentIteration < repeatCount {
+						i = startRepeat
+						currentIteration += 1
+						continue
+					} else {
+						currentStartRepeat = nil
+						currentRepeatCount = nil
+					}
+				}
+			}
+			
+			i += 1
+		}
+		
+		return results
+	}
+	
+}
