@@ -32,9 +32,7 @@ extension MuseScoreFileType {
 	
 	private func loadMSCZ(url: URL) throws -> (Archive, Entry, XMLDocument)? {
 		// open archive
-		guard let archive = Archive(url: url, accessMode: .update) else {
-			return nil
-		}
+		let archive = try Archive(url: url, accessMode: .update)
 		guard let entry = archive.makeIterator().first(where: { $0.path.hasSuffix(".mscx") }) else {
 			return nil
 		}
