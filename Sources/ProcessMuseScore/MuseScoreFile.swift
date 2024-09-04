@@ -149,16 +149,11 @@ public class MuseScoreFile {
 	
 	private func write(xmlData data: Data, toNewArchive destinationURL: URL) throws {
 		// create a new archive with the mscx file + a container describing where it is
-		guard let newArchive = Archive(url: destinationURL, accessMode: .create) else {
-			throw ExportError.zip
-		}
+		let newArchive = try Archive(url: destinationURL, accessMode: .create)
 		
 		let fileName = destinationURL.deletingPathExtension().lastPathComponent.appending(".mscx")
-		let dataProvider: Provider = { (position, size) in
-			return data.subdata(in: position..<(position+size))
-		}
 		
-		try newArchive.addEntry(with: fileName, type: .file, uncompressedSize: UInt32(data.count), compressionMethod: .deflate, provider: dataProvider)
+		try newArchive.addFile(path: fileName, data: data)
 		
 		try newArchive.addDirectory(path: "META-INF")
 		
@@ -202,10 +197,14 @@ extension Archive {
 	
 	func addFile(path: String, data: Data) throws {
 		let dataProvider: Provider = { (position, size) in
-			return data.subdata(in: position..<(position+size))
+			guard position < data.count else {
+				return Data()
+			}
+			let start = Int(position)
+			return data.subdata(in: start..<start+size)
 		}
 
-		try addEntry(with: path, type: .file, uncompressedSize: UInt32(data.count), compressionMethod: .deflate, provider: dataProvider)
+		try addEntry(with: path, type: .file, uncompressedSize: Int64(data.count), compressionMethod: .deflate, provider: dataProvider)
 	}
 	
 	func addDirectory(path: String) throws {

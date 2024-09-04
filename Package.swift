@@ -14,7 +14,7 @@ let package = Package(
     	.library(name: "ProcessMuseScore", type: .static, targets: ["ProcessMuseScore"])
     ],
     dependencies: [
-        .package(url: "https://github.com/weichsel/ZIPFoundation/", .exact("0.9.9")),
+        .package(url: "https://github.com/weichsel/ZIPFoundation/", .exact("0.9.19")),
     ],
     targets: [
         .target(
