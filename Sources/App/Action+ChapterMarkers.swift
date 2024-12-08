@@ -17,9 +17,9 @@ extension Action {
 		if let outputPath = outputPath {
 			outputURL = URL(fileURLWithPath: outputPath)
 		} else {
-			let outputName = inputURL.deletingPathExtension().lastPathComponent.appending("-variations")
+			let outputName = inputURL.deletingPathExtension().lastPathComponent.appending("-chapters")
 			outputURL = inputURL.deletingLastPathComponent()
-				.appendingPathComponent(outputName).appendingPathExtension(inputURL.pathExtension)
+				.appendingPathComponent(outputName).appendingPathExtension("json")
 		}
 		
 		do {
@@ -51,14 +51,7 @@ extension Action {
 		do {
 			let data = try JSONSerialization.data(withJSONObject: chapterMarkerDicts, options: [.prettyPrinted])
 			
-			if let string = String(data: data, encoding: .utf8) {
-				print(string)
-				print("\n\n")
-			} else {
-				fputs("Error writing JSON string\n", stderr)
-				exit(1)
-			}
-			
+			try data.write(to: outputURL)
 		} catch {
 			fputs("Error outputting chapter markers: \(error)\n", stderr)
 			exit(1)
