@@ -33,6 +33,16 @@ extension MuseScoreDocument {
 		for measure in flattenedMeasures {
 			var breathsDuration: Double = 0.0
 			var fermataExtraDuration: Double = 0.0
+			
+			// Incomplete measures, e.g. at the start of a piece, can have a "len" attribute:
+			// <Measure len="1/4">
+			var measureFactor: Double = 1.0
+			if let measureLenAttribute = measure.element.getAttribute("len") {
+				let components = measureLenAttribute.components(separatedBy: "/")
+				if components.count == 2, let numerator = Double(components[0]), let denominator = Double(components[1]), denominator > 0.0 {
+					measureFactor = numerator / denominator
+				}
+			}
 		
 			if let firstVoice = measure.voices.first {
 				if let updatedTimeSig = firstVoice.timeSignature {
@@ -45,9 +55,9 @@ extension MuseScoreDocument {
 				
 				if let rehearsalMark = firstVoice.rehearsalMark {
 					results.append(ChapterMarker(mark: rehearsalMark, time: currentTime))
-					print("\(currentTime) - marker \(rehearsalMark)")
+					// print("\(currentTime) - marker \(rehearsalMark)")
 				} else {
-					print("\(currentTime) - no marker")
+					// print("\(currentTime) - no marker")
 				}
 				
 				let breaths = firstVoice.children(name: "Breath")
@@ -80,7 +90,7 @@ extension MuseScoreDocument {
 				}
 			}
 			
-			let measureDuration = (4.0*timeSignature/tempo) + breathsDuration + fermataExtraDuration
+			let measureDuration = (measureFactor * 4.0 * timeSignature / tempo) + breathsDuration + fermataExtraDuration
 			
 			currentTime += measureDuration
 		}
