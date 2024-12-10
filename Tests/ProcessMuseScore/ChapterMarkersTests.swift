@@ -86,4 +86,39 @@ final class ChapterMarkersTests: XCTestCase {
 			XCTAssertEqual(found.time, expected.time, accuracy: accuracy, "markers[\(i)]")
 		}
 	}
+	
+	func testTempoChanges() throws {
+		let chapterMarkers = try testChapterMarkers(fileName: "ChapterMarkersTest-tempo-changes.mscx")
+		
+		guard chapterMarkers.count == 3 else {
+			XCTFail("Expected 3 chapter markers")
+			return
+		}
+		
+		//     0s:     1/4 at 60bpm (1s)
+		// [A] 1s:     1/4 at 80bpm (0.75s)
+		//     1.75s:  1/4 at 120bpm (0.5s)
+		//     2.25s:  1/4 at 60bpm (1s)
+		// -----------------------------------
+		// [B] 3.25s:  1.5/4 at 90bpm (1s)
+		//     4.25s:  1.5/4 at 135bpm (0.66s)
+		// [C] 4.91s:  1/4 at 120bpm (0.5s)
+		// -----------------------------------
+		//     Total: 5.41s
+		
+		
+		
+		let chapterMarkerA = chapterMarkers[0]
+		let chapterMarkerB = chapterMarkers[1]
+		let chapterMarkerC = chapterMarkers[2]
+		
+		XCTAssertEqual(chapterMarkerA.mark, "A")
+		XCTAssertEqual(chapterMarkerA.time, 1.0)
+		
+		XCTAssertEqual(chapterMarkerB.mark, "B")
+		XCTAssertEqual(chapterMarkerB.time, 3.25, accuracy: accuracy)
+		
+		XCTAssertEqual(chapterMarkerC.mark, "C")
+		XCTAssertEqual(chapterMarkerC.time, 4.9166, accuracy: accuracy)
+	}
 }

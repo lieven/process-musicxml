@@ -22,77 +22,71 @@ extension MuseScoreDocument {
 		}
 	
 		var tempo: Double = 2.0 // 2 beats per second = 120bpm
-		var timeSignature: Double = 1.0 // 4/4
+		var timeSignature = Fractional(numerator: 4, denominator: 4)
 		
-		var currentTime: Double = 0.0
+		var currentMeasureStartTime: Double = 0.0
 		
 		var results: [ChapterMarker] = []
 		
 		let flattenedMeasures = firstStaff.measures.flattenRepeats()
 		
 		for measure in flattenedMeasures {
-			var breathsDuration: Double = 0.0
-			var fermataExtraDuration: Double = 0.0
-			
 			// Incomplete measures, e.g. at the start of a piece, can have a "len" attribute:
 			// <Measure len="1/4">
-			var measureFactor: Double = 1.0
+			var measureLength = timeSignature
 			if let measureLenAttribute = measure.element.getAttribute("len") {
 				let components = measureLenAttribute.components(separatedBy: "/")
-				if components.count == 2, let numerator = Double(components[0]), let denominator = Double(components[1]), denominator > 0.0 {
-					measureFactor = numerator / denominator
+				if components.count == 2, let numerator = Int(components[0]), let denominator = Int(components[1]), denominator > 0 {
+					measureLength = Fractional(numerator: numerator, denominator: denominator)
 				}
 			}
+			
+			var lastTempoChangeStartTime = currentMeasureStartTime
+			var lastTempoChangeStartPosition = Fractional(numerator: 0, denominator: 4)
+			// For fermatas and breaths
+			var extraTimeSinceLastTempoChange = 0.0
 		
-			if let firstVoice = measure.voices.first {
-				if let updatedTimeSig = firstVoice.timeSignature {
+			if let voiceElements = measure.voiceElements(voice: 0) {
+				if let updatedTimeSig = voiceElements.first(where: { $0.timeSignature != nil })?.timeSignature {
 					timeSignature = updatedTimeSig
 				}
 				
-				if let updatedTempo = firstVoice.tempo, updatedTempo > 0.0 {
-					tempo = updatedTempo
-				}
-				
-				if let rehearsalMark = firstVoice.rehearsalMark {
-					results.append(ChapterMarker(mark: rehearsalMark, time: currentTime))
-					// print("\(currentTime) - marker \(rehearsalMark)")
-				} else {
-					// print("\(currentTime) - no marker")
-				}
-				
-				let breaths = firstVoice.children(name: "Breath")
-				for breath in breaths {
-					if let pause = breath.firstChild(name: "pause")?.doubleValue {
-						breathsDuration += pause
-					}
-				}
-			}
-			
-			if let voiceElements = measure.voiceElements(voice: 0) {
 				var currentStretch: Double? = nil
 				
 				for voiceElement in voiceElements {
-					if voiceElement.element.name == "Fermata" {
-						if let stretch = voiceElement.element.firstChild(name: "timeStretch")?.doubleValue, stretch > 0.0 {
-							currentStretch = stretch
-						} else {
-							currentStretch = nil
-						}
+					if let timeStretch = voiceElement.timeStretch {
+						currentStretch = timeStretch.factor
 					} else if let stretch = currentStretch, let duration = voiceElement.duration {
 						if duration.denominator > 0 {
 							let elementDuration = 4.0 * Double(duration) / tempo
 							let stretchedDuration = stretch * elementDuration
-							fermataExtraDuration += stretchedDuration - elementDuration
+							extraTimeSinceLastTempoChange += stretchedDuration - elementDuration
 						}
-						
 						currentStretch = nil
+					}
+					
+					let timeSinceLastTempoChange = 4.0 * Double(voiceElement.position - lastTempoChangeStartPosition) / tempo
+					
+					
+
+					
+					if let updatedTempo = voiceElement.tempo {
+						tempo = updatedTempo
+						
+						lastTempoChangeStartTime += timeSinceLastTempoChange + extraTimeSinceLastTempoChange
+						lastTempoChangeStartPosition = voiceElement.position
+						extraTimeSinceLastTempoChange = 0.0
+						
+					} else if let rehearsalMark = voiceElement.rehearsalMark {
+						results.append(ChapterMarker(mark: rehearsalMark, time: lastTempoChangeStartTime + timeSinceLastTempoChange + extraTimeSinceLastTempoChange))
+					} else if let breathPause = voiceElement.breathPause {
+						extraTimeSinceLastTempoChange += breathPause
 					}
 				}
 			}
-			
-			let measureDuration = (measureFactor * 4.0 * timeSignature / tempo) + breathsDuration + fermataExtraDuration
-			
-			currentTime += measureDuration
+			let measureEndTimeSinceLastTempoChange = 4.0 * Double(measureLength - lastTempoChangeStartPosition) / tempo
+				
+			currentMeasureStartTime = lastTempoChangeStartTime + measureEndTimeSinceLastTempoChange + extraTimeSinceLastTempoChange
 		}
 	
 		return results
@@ -112,28 +106,6 @@ extension XMLElement {
 			return nil
 		}
 		return sigN / sigD
-	}
-	
-	/// only valid on voice elements
-	var tempo: Double? {
-		guard
-			let tempoElement = self.firstChild(name: "Tempo"),
-			let tempo = tempoElement.firstChild(name: "tempo")?.doubleValue
-		else {
-			return nil
-		}
-		
-		return tempo
-	}
-	
-	var rehearsalMark: String? {
-		guard
-			let rehearsalMarkElement = self.firstChild(name: "RehearsalMark"),
-			let rehearsalMark = rehearsalMarkElement.getStringValue(child: "text")
-		else {
-			return nil
-		}
-		return rehearsalMark
 	}
 }
 
@@ -157,5 +129,65 @@ extension XMLNode {
 			return nil
 		}
 		return intValue
+	}
+}
+
+extension MuseScoreVoiceElement {
+	var tempo: Double? {
+		guard element.name == "Tempo", let tempo = element.firstChild(name: "tempo")?.doubleValue else {
+			return nil
+		}
+		return tempo
+	}
+	
+	var rehearsalMark: String? {
+		guard element.name == "RehearsalMark", let rehearsalMark = element.getStringValue(child: "text") else {
+			return nil
+		}
+		return rehearsalMark
+	}
+	
+	var timeSignature: Fractional? {
+		guard
+			element.name == "TimeSig",
+			let sigN = element.firstChild(name: "sigN")?.intValue,
+			let sigD = element.firstChild(name: "sigD")?.intValue,
+			sigD > 0
+		else {
+			return nil
+		}
+		return Fractional(numerator: sigN, denominator: sigD)
+	}
+	
+	var breathPause: Double? {
+		guard element.name == "Breath", let pause = element.firstChild(name: "pause")?.doubleValue else {
+			return nil
+		}
+		return pause
+	}
+	
+	var timeStretch: TimeStretch? {
+		guard element.name == "Fermata" else {
+			return nil
+		}
+		if let stretch = element.firstChild(name: "timeStretch")?.doubleValue, stretch > 0.0 {
+			return TimeStretch.start(factor: stretch)
+		} else {
+			return TimeStretch.end
+		}
+	}
+}
+
+enum TimeStretch {
+	case start(factor: Double)
+	case end
+	
+	var factor: Double? {
+		switch (self) {
+		case .start(let factor):
+			return factor
+		case .end:
+			return nil
+		}
 	}
 }
