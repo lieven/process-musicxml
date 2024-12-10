@@ -315,7 +315,7 @@ extension Array where Element == MuseScoreMeasure {
 		var i = 0
 		let n = self.count
 		
-		var currentStartRepeat: Int? = nil
+		var currentStartRepeat: Int? = 0
 		var currentIteration: Int = 0
 		var currentRepeatCount: Int? = nil
 		
