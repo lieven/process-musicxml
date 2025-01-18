@@ -28,7 +28,9 @@ extension MuseScoreDocument {
 		
 		var results: [ChapterMarker] = []
 		
-		let flattenedMeasures = firstStaff.measures.flattenRepeats()
+		let flattenedMeasures = firstStaff.measures
+			.flattenJumps()
+			.flattenRepeats()
 		
 		for measure in flattenedMeasures {
 			// Incomplete measures, e.g. at the start of a piece, can have a "len" attribute:

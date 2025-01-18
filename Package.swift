@@ -48,6 +48,7 @@ let package = Package(
 				.copy("ChapterMarkersTest-norepeats.mscx"),
 				.copy("ChapterMarkersTest-with-repeats.mscx"),
 				.copy("ChapterMarkersTest-tempo-changes.mscx"),
+				.copy("ChapterMarkersTest-jumps.mscx"),
 			]
 		)
     ]

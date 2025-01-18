@@ -322,7 +322,7 @@ extension Array where Element == MuseScoreMeasure {
 		while i < n {
 			let measure = self[i]
 			
-			if currentStartRepeat == nil, measure.element.firstChild(name: "startRepeat") != nil {
+			if (currentStartRepeat == nil || currentStartRepeat == 0), measure.element.firstChild(name: "startRepeat") != nil {
 				currentStartRepeat = i
 				currentIteration = 0
 			}
@@ -349,6 +349,89 @@ extension Array where Element == MuseScoreMeasure {
 			}
 			
 			i += 1
+		}
+		
+		return results
+	}
+	
+	private var labelToMeasureIndex: [String: Int] {
+		var labelToMeasureIndex: [String: Int] = [:]
+		
+		var measureIndex = 0
+		for measure in self {
+			if let markerElement = measure.element.firstChild(name: "Marker"), let label = markerElement.getStringValue(child: "label") {
+				/*
+				<Marker>
+					<style>Repeat Text Right</style>
+					<text>To Coda</text>
+					<label>coda</label>
+				</Marker>
+				 */
+				labelToMeasureIndex[label] = measureIndex
+			}
+			
+			measureIndex += 1
+		}
+		
+		return labelToMeasureIndex
+	}
+	
+	func flattenJumps() -> [MuseScoreMeasure] {
+		let labelToMeasureIndex = self.labelToMeasureIndex
+		
+		var measureIndex = 0
+		
+		var currentJump: (playUntil: Int, continueAt: Int)?
+		
+		let numMeasures = self.count
+		
+		var results: [MuseScoreMeasure] = []
+		
+		while measureIndex < numMeasures {
+			let measure = self[measureIndex]
+			
+			if let jump = currentJump, measureIndex > jump.playUntil {
+				measureIndex = jump.continueAt
+				currentJump = nil
+				continue
+			}
+			
+			results.append(measure)
+			
+			if currentJump == nil, let jumpElement = measure.element.firstChild(name: "Jump"), let jumpToMarker = jumpElement.getStringValue(child: "jumpTo"), let jumpTo = labelToMeasureIndex[jumpToMarker] {
+				
+				/*
+				<Jump>
+					<style>Repeat Text Right</style>
+					<text>D.S. al Coda</text>
+					<jumpTo>segno</jumpTo>
+					<playUntil>coda</playUntil>
+					<continueAt>codab</continueAt>
+				</Jump>
+				 */
+				
+				let playUntil: Int
+				if let playUntilMarker = jumpElement.getStringValue(child: "playUntil"), let playUntilIndex = labelToMeasureIndex[playUntilMarker] {
+					playUntil = playUntilIndex
+				} else {
+					playUntil = measureIndex + 1
+				}
+				
+				let continueAt: Int
+				if let continueAtMarker = jumpElement.getStringValue(child: "continueAt"), let continueAtIndex = labelToMeasureIndex[continueAtMarker] {
+					continueAt = continueAtIndex
+				} else {
+					continueAt = measureIndex + 1
+				}
+				
+				currentJump = (playUntil: playUntil, continueAt: continueAt)
+				
+				measureIndex = jumpTo
+				
+				continue
+			}
+			
+			measureIndex += 1
 		}
 		
 		return results

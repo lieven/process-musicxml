@@ -121,4 +121,35 @@ final class ChapterMarkersTests: XCTestCase {
 		XCTAssertEqual(chapterMarkerC.mark, "C")
 		XCTAssertEqual(chapterMarkerC.time, 4.9166, accuracy: accuracy)
 	}
+	
+	func testJumps() throws {
+		let chapterMarkers = try testChapterMarkers(fileName: "ChapterMarkersTest-jumps.mscx")
+		
+		let expectedCount = 6
+		guard chapterMarkers.count == expectedCount else {
+			XCTFail("Expected \(expectedCount) chapter markers")
+			return
+		}
+		
+		//     0s:  measure 1
+		//     2s:  measure 2
+		// [A] 4s:  measure 3
+		//     6s:  measure 4
+		// [B] 8s:  measure 5
+		//     10s: measure 6
+		//     12s: measure 2
+		// [A] 14s: measure 3
+		//     16s: measure 4
+		// [D] 18s: measure 8
+		// [E] 20s: measure 9
+		// [F] 22s: measure 10
+		
+		
+		XCTAssertEqual(chapterMarkers[0], ChapterMarker(mark: "A", time: 4.0))
+		XCTAssertEqual(chapterMarkers[1], ChapterMarker(mark: "B", time: 8.0))
+		XCTAssertEqual(chapterMarkers[2], ChapterMarker(mark: "A", time: 14.0))
+		XCTAssertEqual(chapterMarkers[3], ChapterMarker(mark: "D", time: 18.0))
+		XCTAssertEqual(chapterMarkers[4], ChapterMarker(mark: "E", time: 20.0))
+		XCTAssertEqual(chapterMarkers[5], ChapterMarker(mark: "F", time: 22.0))
+	}
 }
